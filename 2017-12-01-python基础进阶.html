@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="函数定义函数就是完成特定功能的一个语句组，这组语句可以作为一个单位使用，并且给它取一个名字。 为什么使用函数？降低编程难度，通常将一个复杂的大问题分解成一系列的小问题，然后将小问题划分成更小的问题，当问题细化为足够简单时，我们就可以分而治之。各个小问题解决了，大问题就迎刃而解。">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python基础进阶">
+<meta property="og:url" content="https://szone2.github.io/2017-12-01-python基础进阶.html">
+<meta property="og:site_name" content="Python 学习博客">
+<meta property="og:description" content="函数定义函数就是完成特定功能的一个语句组，这组语句可以作为一个单位使用，并且给它取一个名字。 为什么使用函数？降低编程难度，通常将一个复杂的大问题分解成一系列的小问题，然后将小问题划分成更小的问题，当问题细化为足够简单时，我们就可以分而治之。各个小问题解决了，大问题就迎刃而解。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-04T13:32:33.659Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python基础进阶">
+<meta name="twitter:description" content="函数定义函数就是完成特定功能的一个语句组，这组语句可以作为一个单位使用，并且给它取一个名字。 为什么使用函数？降低编程难度，通常将一个复杂的大问题分解成一系列的小问题，然后将小问题划分成更小的问题，当问题细化为足够简单时，我们就可以分而治之。各个小问题解决了，大问题就迎刃而解。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://szone2.github.io/2017-12-01-python基础进阶.html"/>
+
+
+
+
+
+  <title>python基础进阶 | Python 学习博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Python 学习博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://szone2.github.io/2017-12-01-python基础进阶.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Python 学习博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python基础进阶</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-01T22:33:36+08:00">
+                2017-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="函数定义"><a href="#函数定义" class="headerlink" title="函数定义"></a>函数定义</h1><p>函数就是完成特定功能的一个语句组，这组语句可以作为一个单位使用，并且给它取一个名字。</p>
+<p>为什么使用函数？降低编程难度，通常将一个复杂的大问题分解成一系列的小问题，然后将小问题划分成更小的问题，当问题细化为足够简单时，我们就可以分而治之。各个小问题解决了，大问题就迎刃而解。</p>
+<a id="more"></a>
+<p>代码重用 - 避免重复劳作，提供效率</p>
+<p>函数的定义和调用：</p>
+<p>定义函数：def 函数名([参数列表])：</p>
+<p>调用函数：函数名([参数列表])</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">def fun():</div><div class="line">    print &quot;hello, world&quot;</div><div class="line">    </div><div class="line">fun()</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/python</div><div class="line">#判断键盘输入是否为数字</div><div class="line"></div><div class="line">def fun():</div><div class="line">    sth = raw_input(&quot;Please input something: &quot;)</div><div class="line">    </div><div class="line">    # 判断sth是否数字</div><div class="line">    try:</div><div class="line">        #如果sth是纯数字则int()不会报错</div><div class="line">        if type(int(sth)) == type(1):</div><div class="line">            print &quot;%s is number&quot; % sth</div><div class="line">    # 否则抛出异常</div><div class="line">    except ValueError:</div><div class="line">        print &quot;%s is not number&quot; % sth</div><div class="line"></div><div class="line"># 调用函数</div><div class="line">fun()</div></pre></td></tr></table></figure>
+<h1 id="函数的参数"><a href="#函数的参数" class="headerlink" title="函数的参数"></a>函数的参数</h1><p>形式参数和实际参数:</p>
+<p>在定义函数时，函数名后面括号中的变量名称叫做形式参数，或者成为“形参”</p>
+<p>在调用函数时，函数后面括号中的变量名称叫做“实际参数”，或者称为“实参”</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># x, y为形式参数</div><div class="line">def fun(x, y):</div><div class="line">    print x + y</div><div class="line"></div><div class="line"># 2, 3为形式参数</div><div class="line">fun(2, 3)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"># 脚本识别参数</div><div class="line"></div><div class="line">#!/usr/bin/python</div><div class="line"></div><div class="line">import sys</div><div class="line"></div><div class="line">def isNum(s):</div><div class="line">    for i in s:</div><div class="line">        if i in &apos;0123456789&apos;:</div><div class="line">            pass</div><div class="line">        else:</div><div class="line">            print &quot;%s is not a number&quot; % s</div><div class="line">            sys.exit()</div><div class="line">    # for循环正常结束执行else后的内容</div><div class="line">    else:</div><div class="line">        print &quot;%s is a number&quot; % s</div><div class="line"></div><div class="line">isNum(sys.argv[1])</div></pre></td></tr></table></figure>
+<h1 id="函数的默认参数"><a href="#函数的默认参数" class="headerlink" title="函数的默认参数"></a>函数的默认参数</h1><p>注意默认参数只可以形参的最后</p>
+<p>例如，不能这样定义：def fun(x=2, y):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">def fun(x, y=100):</div><div class="line">    print x, y</div><div class="line"></div><div class="line">fun(1, 2)</div><div class="line">fun(1)</div></pre></td></tr></table></figure>
+<p>练习：</p>
+<p>打印系统的所有PID，要求从/proc读取。提示:os.listdir()</p>
+<p>import os</p>
+<h1 id="返回目录下的内容（类型是列表）"><a href="#返回目录下的内容（类型是列表）" class="headerlink" title="返回目录下的内容（类型是列表）"></a>返回目录下的内容（类型是列表）</h1><p>os.listdir(‘/proc’)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">import sys</div><div class="line">import os</div><div class="line"></div><div class="line">def isNum(s):</div><div class="line">    for i in s:</div><div class="line">        if i in &apos;0123456789&apos;:</div><div class="line">            pass</div><div class="line">        else:</div><div class="line">            # 不是数字退出本次循环</div><div class="line">            break</div><div class="line">    # for循环正常结束执行else后的内容</div><div class="line">    else:</div><div class="line">    # 打印pid</div><div class="line">        print s</div><div class="line"></div><div class="line">for i in os.listdir(&apos;/proc&apos;):</div><div class="line">    isNum(i)</div></pre></td></tr></table></figure>
+<h1 id="函数的变量"><a href="#函数的变量" class="headerlink" title="函数的变量"></a>函数的变量</h1><p>局部变量和全局变量</p>
+<p>python中的任何变量都有特定的作用域</p>
+<p>在函数中定义的变量一般只能在该函数内部使用，这些只能在程序的特定部分使用的变量我们称之为局部变量</p>
+<p>在一个文件顶部定义的变量可以供文件中的任何函数调用，这些可以为整个程序所使用的变量称为全局变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/python</div><div class="line"></div><div class="line"># 全局变量</div><div class="line">x = &apos;global var&apos;</div><div class="line"></div><div class="line">def fun():</div><div class="line">    # x 为局部变量</div><div class="line">    x = 100</div><div class="line">    print x</div><div class="line"></div><div class="line">fun()</div><div class="line"></div><div class="line"># 在函数外部打印x</div><div class="line">print x</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/python</div><div class="line"></div><div class="line">x = 100</div><div class="line"></div><div class="line">def fun():</div><div class="line"># global关键字，声明x为全局变量。如果不声明，则x在函数内部只能被print，不能做实际的操作例如x += 1</div><div class="line">    global x</div><div class="line">    x += 1</div><div class="line">    print x</div><div class="line"></div><div class="line">fun()</div><div class="line">print x</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/python</div><div class="line"># locals返回函数的变量，如果放在函数内返回函数内的变量，如果放在外部，返回的是全部变量（类型是字典）</div><div class="line"></div><div class="line">x = 100</div><div class="line"></div><div class="line">def fun():</div><div class="line">    x = 1</div><div class="line">    y = 1</div><div class="line">    # 统计fun函数内部的变量</div><div class="line">    print locals()</div><div class="line"></div><div class="line">fun()</div><div class="line"># 统计整个程序的变量</div><div class="line">print locals()</div></pre></td></tr></table></figure>
+<h1 id="打印目录下所有文件"><a href="#打印目录下所有文件" class="headerlink" title="打印目录下所有文件"></a>打印目录下所有文件</h1><p>递归注意的事项：</p>
+<p>必须有最后的默认结果(if n == 0)</p>
+<p>递归参数必须向默认结果收敛的 factorial(n-1)</p>
+<p>创建一个名为print_files.py文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/python</div><div class="line"># 必须有最后的默认结果：操作系统的目录的深度不会是无限的</div><div class="line"># 递归参数必须向默认结果收敛的：一层一层地向最深的目录靠近</div><div class="line"># 使用到的方法：isdir()、isfile()判断是否是目录、文件，返回一个布尔值；</div><div class="line"># os.path.join连接文件路径，无判断是否存在的功能</div><div class="line"></div><div class="line"></div><div class="line"># 使用方法：python print_files.py 目录名</div><div class="line"></div><div class="line">import os</div><div class="line">import sys</div><div class="line"></div><div class="line">def print_files(path):</div><div class="line">    lsdir = os.listdir(path)</div><div class="line">    # 列表重写,作用是过滤出目录。通过path和i连接出目录的路径</div><div class="line">    dirs = [i for i in lsdir if os.path.isdir(os.path.join(path, i))]</div><div class="line">    # 列表重写，作用是过滤出文件</div><div class="line">    files = [i for i in lsdir if os.path.isfile(os.path.join(path,i))]</div><div class="line">    </div><div class="line">    #判断是否有子目录，如果有子目录，对子目录做遍历</div><div class="line">    if dirs:</div><div class="line">        for d in dirs:</div><div class="line">            #每个子目录在递归调用这个函数</div><div class="line">            print_files(os.path.join(path, d))</div><div class="line">    </div><div class="line">    #把文件打印出来</div><div class="line">    if files:</div><div class="line">        for f in files:</div><div class="line">            print os.path.join(path, f)</div><div class="line">            </div><div class="line">print_files(sys.argv[1])</div></pre></td></tr></table></figure>
+<h1 id="匿名函数"><a href="#匿名函数" class="headerlink" title="匿名函数"></a>匿名函数</h1><p>lambda函数是一种快速定义单行的最小函数，可以用在任何需要函数的地方。</p>
+<p>匿名函数的优点：</p>
+<p>使用python写一些脚本时，使用lambda可以省去定义函数的过程，让代码更加精简。</p>
+<p>对于一些抽象的，不会被别的地方再重复使用的函数，有时候函数起个名字也是个难题，使用lambda不需要考虑命名的问题</p>
+<p>使用lambda在某些时候让代码更容易理解</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"># lambda语句中，冒号前是参数，可以有很多歌，逗号隔开，冒号右边是返回值。</div><div class="line"># lambda语句构建的其实是一个函数对象</div><div class="line"></div><div class="line">def fun(x, y):</div><div class="line">    return x * y</div><div class="line">fun(2, 3)</div><div class="line"></div><div class="line">r = lambda x, y: x * y</div><div class="line">r(2, 3)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">reduce(lambda x, y: x + y, range(1, 101))</div></pre></td></tr></table></figure>
+<h1 id="模块使用"><a href="#模块使用" class="headerlink" title="模块使用"></a>模块使用</h1><p>模块是python组织代码的基本方式</p>
+<p>一个python脚本可以单独运行，也可以导入到另一个脚本中运行，当脚本被导入运行时，我们将其称为模块（moudule）</p>
+<p>所有的.py文件都可以作为一个模块导入</p>
+<p>模块名与脚本的文件名相同</p>
+<p>例如我们编写了一个名为hello.py的脚本，则可以在另一个脚本中以import hello来导入</p>
+<p>python的模块可以按目录组织为包</p>
+<p>创建包的步骤：</p>
+<p>创建一个名字为包名的目录</p>
+<p>在该目录下创建一个__init.py__文件</p>
+<p>根据需要，在该目录下存放脚本文件或已编译的扩展及子包</p>
+<p>import pack.m1, pack.m2, pack.m3</p>
+<hr>
+<p>sys.path可以看到模块的位置(返回一个list)</p>
+<p>export PYTHONPATH</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/python</div><div class="line"></div><div class="line">def wordCount(s):</div><div class="line">    chars = len(s)</div><div class="line">    words = len(s.split())</div><div class="line">    lines = s.count()</div><div class="line">    print lines, words, chars</div><div class="line"></div><div class="line">s = open(&apos;/etc/passwd&apos;).read()</div><div class="line">worldCount(s)</div></pre></td></tr></table></figure>
+<h1 id="面向对象介绍"><a href="#面向对象介绍" class="headerlink" title="面向对象介绍"></a>面向对象介绍</h1><p>面向对象是一种编程方法。在python里一切皆对象。</p>
+<p>面向过程编程：函数式编程，C程序等</p>
+<p>面向对象编程： C++，java，Python等</p>
+<p>类和对象：是面向对象中的两个重要概念</p>
+<p>类： 是对事物的抽象，比如：球类</p>
+<p>对象：是类的一个实例，比如：足球、篮球</p>
+<p>实例说明：球类可以对球的特征和行为进行抽象，然后可以实例化一个真实的球实体出来。</p>
+<p>面向对象的主要思想是：封装、继承、多态</p>
+<h1 id="类的定义"><a href="#类的定义" class="headerlink" title="类的定义"></a>类的定义</h1><p>类把需要的变量和函数组合成一起，这种包含称为”封装“</p>
+<p>class A(object):</p>
+<p>类的结构：</p>
+<p>class 类名：<br>    成员变量-属性<br>    成员方法-函数</p>
+<p>class MyClass(object):<br>    def fun(self):<br>        print “I am function”<br>类的方法中至少有一个参数self,self表示类自己</p>
+<p>对象的属性和方法与类中的成员变量和成员函数对应</p>
+<p>obj = MyClass() //创建类的一个实例（对象）通过对象类调用方法和属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/python</div><div class="line"></div><div class="line">class People(object):</div><div class="line">    # 静态属性</div><div class="line">    color = &apos;yellow&apos;</div><div class="line">    </div><div class="line">    def think(self)：</div><div class="line">        # 使用上面的属性，self表示自身</div><div class="line">        self.color = &quot;black&quot;</div><div class="line">        print &quot;I am a %s&quot; % self.color</div><div class="line">        print &quot;I am a thinker.&quot;</div><div class="line">    </div><div class="line"></div><div class="line">#类的实例化（创建一个对象）。赋给变量ren。ren的类型是对象</div><div class="line">ren = People()</div><div class="line"></div><div class="line">print ren.color</div><div class="line">ren.think()</div></pre></td></tr></table></figure>
+<h1 id="类的属性"><a href="#类的属性" class="headerlink" title="类的属性"></a>类的属性</h1><p>类的属性按使用范围分为公有属性和私有属性，类的属性范围取决于属性的名称。</p>
+<p>公有属性：在类中和类外都能调用的属性。</p>
+<p>私有属性：不能在类外及被类意外的函数调用</p>
+<p>定义方式：以”__”双下划线开始的成员变量就是私有属性</p>
+<p>可以通过instance（实例）._classname__attribute方式访问。</p>
+<p>内置属性：由系统在定义类的时候默认添加的，由前后双下划线构成，__dict__,__module__</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/python</div><div class="line"># _*_ coding:utf8 _*_</div><div class="line"></div><div class="line">class People(object):</div><div class="line">    # 静态属性</div><div class="line">    color = &apos;yellow&apos;</div><div class="line">    #私有属性</div><div class="line">    __age = 30</div><div class="line">    </div><div class="line">    def think(self)：</div><div class="line">        # 使用上面的属性，self表示自身</div><div class="line">        self.color = &quot;black&quot;</div><div class="line">        print &quot;I am a %s&quot; % self.color</div><div class="line">        print &quot;I am a thinker.&quot;</div><div class="line">        print self.__age</div><div class="line">    </div><div class="line"></div><div class="line">#类的实例化（创建一个对象）。赋给变量ren。ren的类型是对象</div><div class="line">ren = People()</div><div class="line"></div><div class="line">ren.color = &apos;白色人&apos;</div><div class="line">print ren.color</div><div class="line"></div><div class="line">ren.think()</div><div class="line"># 通过对象调用</div><div class="line">print ren.__dict__</div><div class="line">print &apos;#&apos; *30</div><div class="line">print People.color</div><div class="line">print &apos;#&apos; *30</div><div class="line"># 通过类调用</div><div class="line">print People.__dict__</div></pre></td></tr></table></figure>
+<h1 id="类的方法"><a href="#类的方法" class="headerlink" title="类的方法"></a>类的方法</h1><p>方法的定义和函数一样，但是需要self作为第一个参数</p>
+<p>类方法为：</p>
+<p>公有方法，在类中和类外都能调用的方法</p>
+<p>私有方法，不能被类的外部调用，在方法前面加上”__”双下划线就是私有方法</p>
+<p>类方法，被classmethod()函数处理过的函数，能被类所调用，也能被对象所调用（是继承的关系）</p>
+<p>静态方法，相当于“全局函数”，可以被类直接调用，可以被所有实例化对象共享，通过staticmethod()定义，静态方法没有“self”参数。</p>
+<p>装饰器：<br>@classmethod<br>@staticmethod</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/python</div><div class="line"># _*_ coding:utf8 _*_</div><div class="line"></div><div class="line">class People(object):</div><div class="line">    # 静态属性</div><div class="line">    color = &apos;yellow&apos;</div><div class="line">    #私有属性</div><div class="line">    __age = 30</div><div class="line">    </div><div class="line">    # 公有方法</div><div class="line">    def think(self)：</div><div class="line">        # 使用上面的属性，self表示自身</div><div class="line">        self.color = &quot;black&quot;</div><div class="line">        print &quot;I am a %s&quot; % self.color</div><div class="line">        print &quot;I am a thinker.&quot;</div><div class="line">        print self.__age</div><div class="line">    </div><div class="line">    # 私有方法</div><div class="line">    def __talk(self):</div><div class="line">        print &quot;I am talking with Tom&quot;</div><div class="line">    </div><div class="line">    # 公有方法</div><div class="line">    def test(self):</div><div class="line">        print &apos;Testing...&apos;</div><div class="line">    </div><div class="line">    # 类方法</div><div class="line">    cm = classmethod(test)</div><div class="line">        </div><div class="line">jack = People()</div><div class="line">People.cm()</div><div class="line"></div><div class="line"># 尝试通过对象来访问私有对象,结果是不可以的</div><div class="line">jack.__talk()</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2017-12-01-python基础进阶.html">python基础进阶</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 shen 的个人博客">shen</a></p>
+  <p><span>发布时间:</span>2017年12月01日 - 22:12</p>
+  <p><span>最后更新:</span>2017年12月04日 - 21:12</p>
+  <p><span>原始链接:</span><a href="/2017-12-01-python基础进阶.html" title="python基础进阶">https://szone2.github.io/2017-12-01-python基础进阶.html</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://szone2.github.io/2017-12-01-python基础进阶.html"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+	clipboard.on('success', $(function(){
+	  $(".fa-clipboard").click(function(){
+		swal({   
+		  title: "",   
+		  text: '复制成功',   
+		  html: false,
+		  timer: 500,   
+		  showConfirmButton: false
+	    });
+	  });
+    }));  
+</script>
+
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017-11-28-python基础.html" rel="next" title="python基础">
+                <i class="fa fa-chevron-left"></i> python基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017-12-08-Multi-process.html" rel="prev" title="多进程">
+                多进程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">shen</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#函数定义"><span class="nav-number">1.</span> <span class="nav-text">函数定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数的参数"><span class="nav-number">2.</span> <span class="nav-text">函数的参数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数的默认参数"><span class="nav-number">3.</span> <span class="nav-text">函数的默认参数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#返回目录下的内容（类型是列表）"><span class="nav-number">4.</span> <span class="nav-text">返回目录下的内容（类型是列表）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数的变量"><span class="nav-number">5.</span> <span class="nav-text">函数的变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#打印目录下所有文件"><span class="nav-number">6.</span> <span class="nav-text">打印目录下所有文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#匿名函数"><span class="nav-number">7.</span> <span class="nav-text">匿名函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模块使用"><span class="nav-number">8.</span> <span class="nav-text">模块使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面向对象介绍"><span class="nav-number">9.</span> <span class="nav-text">面向对象介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类的定义"><span class="nav-number">10.</span> <span class="nav-text">类的定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类的属性"><span class="nav-number">11.</span> <span class="nav-text">类的属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类的方法"><span class="nav-number">12.</span> <span class="nav-text">类的方法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shen</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

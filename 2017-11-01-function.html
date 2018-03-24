@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="函数的一般形式在Python中，定义一个函数要使用def语句，依次写出函数名、括号、括号中的参数和冒号:，然后，在缩进块中编写函数体，函数的返回值用return语句返回。 我们以自定义一个求和的sum函数为例：">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="函数">
+<meta property="og:url" content="https://szone2.github.io/2017-11-01-function.html">
+<meta property="og:site_name" content="Python 学习博客">
+<meta property="og:description" content="函数的一般形式在Python中，定义一个函数要使用def语句，依次写出函数名、括号、括号中的参数和冒号:，然后，在缩进块中编写函数体，函数的返回值用return语句返回。 我们以自定义一个求和的sum函数为例：">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-06T15:35:25.486Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="函数">
+<meta name="twitter:description" content="函数的一般形式在Python中，定义一个函数要使用def语句，依次写出函数名、括号、括号中的参数和冒号:，然后，在缩进块中编写函数体，函数的返回值用return语句返回。 我们以自定义一个求和的sum函数为例：">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://szone2.github.io/2017-11-01-function.html"/>
+
+
+
+
+
+  <title>函数 | Python 学习博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Python 学习博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://szone2.github.io/2017-11-01-function.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Python 学习博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">函数</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-01T21:29:56+08:00">
+                2017-11-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="函数的一般形式"><a href="#函数的一般形式" class="headerlink" title="函数的一般形式"></a>函数的一般形式</h1><p>在Python中，定义一个函数要使用def语句，依次写出函数名、括号、括号中的参数和冒号:，然后，在缩进块中编写函数体，函数的返回值用return语句返回。</p>
+<p>我们以自定义一个求和的sum函数为例：</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"># 函数的定义</div><div class="line"></div><div class="line">def sum(x, y):</div><div class="line">    return x + y</div><div class="line"></div><div class="line"># 写成sum(y=3, x=10)也可以</div><div class="line">m = sum(10, 3) </div><div class="line"></div><div class="line">print(m)</div></pre></td></tr></table></figure>
+<h1 id="函数的参数"><a href="#函数的参数" class="headerlink" title="函数的参数"></a>函数的参数</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"># 给形参b设定一个默认的值</div><div class="line"></div><div class="line">def funcA(a, b=0):</div><div class="line">    print a</div><div class="line">    print b</div><div class="line"></div><div class="line"># 如果实参传入的时候，没有给定b的值，b会使用默认参数值0</div><div class="line">funcA(1)</div><div class="line"></div><div class="line"># 如果实参传入的时候，给定了b的值，b会优先选择传入的实参</div><div class="line"># funCA(10, 20)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"># 参数为tuple</div><div class="line"></div><div class="line">def funcD(a, b, *c):</div><div class="line">    print a</div><div class="line">    print b</div><div class="line">    print &quot;length of c is : %d &quot; % len(c)</div><div class="line">    print c</div><div class="line">    </div><div class="line">funcD(1, 2, 3, 4, 5, 6)</div><div class="line"></div><div class="line"># 或者可以先定义好一个tuple,再通过实参传入</div><div class="line"># test = (&apos;hello&apos;, &apos;world&apos;)</div><div class="line"># funcD(1, 2, *test)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"># 参数为dict</div><div class="line"></div><div class="line">def funcE(a, **b):</div><div class="line">    print(a)</div><div class="line">    print(b)</div><div class="line">    for x in b:</div><div class="line">        print x + &apos;:&apos; + str(b[x])</div><div class="line"></div><div class="line">funcE(100, x=&apos;hello&apos;, y=&apos;你好&apos;)</div><div class="line"></div><div class="line"># 同样可以先定义好一个dict,再通过实参传入</div><div class="line"># args = &#123;&apos;1&apos;:&apos;hello&apos;, &apos;2&apos;:&apos;200&apos;&#125;</div><div class="line"># funcD(100, **args)</div></pre></td></tr></table></figure>
+<h1 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h1><blockquote>
+<p>高阶函数就是把函数当成参数传递的一种函数</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">def add(x, y, f):</div><div class="line">    return f(x) + f(y)</div><div class="line"></div><div class="line">print(add(-8, 11, abs)</div><div class="line"></div><div class="line"># 结果：19</div><div class="line"></div><div class="line"># 调用add函数，分别执行abs(-8) 和 abs(11)，分别计算出他们的值</div><div class="line"># 最后在做和运算</div></pre></td></tr></table></figure>
+<h2 id="map-函数"><a href="#map-函数" class="headerlink" title="map()函数"></a>map()函数</h2><p>map函数是python内置的一个高阶函数，它接受一个函数f 和一个list，并把list的元素以此传递给函数f ，然后返回一个函数f 处理完所有list元素的列表如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">def f2(x):</div><div class="line">    return x * x</div><div class="line"></div><div class="line">l = [1, 2, 3, 4, 5, 6]</div><div class="line"></div><div class="line"># 第一个参数是一个函数，第二个参数是一个可迭代对象</div><div class="line"></div><div class="line">print(map(f2, l))</div><div class="line"></div><div class="line"># 结果</div><div class="line"># [1, 4, 9, 16, 25, 36]</div><div class="line"># 解析：</div><div class="line"># l是一个list，把此list的元素传入函数f2，求每个元素的平方</div><div class="line"># 把最终所有的计算结果合并成一个新的list，就如新的结果所示</div></pre></td></tr></table></figure>
+<h2 id="reduce-函数"><a href="#reduce-函数" class="headerlink" title="reduce()函数"></a>reduce()函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"># 传入f函数参数接受两个参数</div><div class="line"># 把可迭代对象的两个参数作为函数的实参，传入到f函数中</div><div class="line"># 把每次f运算的结果作为第一个实参，可迭代对象的下一个元素作为另一个实参，传入函数f中</div><div class="line"># 以此类推，最终得到结果</div><div class="line"></div><div class="line">def f(x, y):</div><div class="line">    return x + y</div><div class="line">print(reduce(f, [1, 2, 3, 4, 5], 10)</div></pre></td></tr></table></figure>
+<h2 id="filter-函数"><a href="#filter-函数" class="headerlink" title="filter()函数"></a>filter()函数</h2><p>filter即过滤的意思，filter()函数接受一个函数f 和一个list，这个函数f 的作用是对每个元素进行判断，返回True或false，filter()根据判断结果自动过滤不符合条件的元素，返回由符合条件元素组成的新list</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">def is_odd(x):</div><div class="line">    return x % 2 == 1</div><div class="line">print(filter(is_odd, [1, 2, 3, 4, 5, 6, 7]))</div><div class="line"></div><div class="line"># 结果：[1, 3, 5, 7]</div></pre></td></tr></table></figure>
+<h2 id="sorted-函数"><a href="#sorted-函数" class="headerlink" title="sorted()函数"></a>sorted()函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"># 对字典进行排序</div><div class="line">mm = dict(a=1, b=10, c=3, d=9)</div><div class="line"># 对key排序</div><div class="line">test = sorted(mm)</div><div class="line">print(test)</div><div class="line"># 对value排序, key参数传进value来进行排序</div><div class="line">test = sorted(mm.iteritems(), key = lamda d: d[1])</div><div class="line">print(test)</div></pre></td></tr></table></figure>
+<h1 id="匿名函数（没有名字的函数）"><a href="#匿名函数（没有名字的函数）" class="headerlink" title="匿名函数（没有名字的函数）"></a>匿名函数（没有名字的函数）</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#def sum(x, y):</div><div class="line">#    return x + y</div><div class="line"></div><div class="line">#上面的函数作用等同于下面的匿名函数</div><div class="line">m = lamda x, y: x + y</div><div class="line">print(m(4, 5)</div></pre></td></tr></table></figure>
+<h1 id="列表生成式和生成器"><a href="#列表生成式和生成器" class="headerlink" title="列表生成式和生成器"></a>列表生成式和生成器</h1><h2 id="列表生成式"><a href="#列表生成式" class="headerlink" title="列表生成式"></a>列表生成式</h2><blockquote>
+<p>对一组元素进行过滤，还可以对元素进行格式化处理</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># 列表生成式</div><div class="line"># 求1到100所有偶数的平方</div><div class="line"># 前面先写你需要的东西x*x ，后面写for处理</div><div class="line"></div><div class="line">li = [ x*x for x in xrange(1, 101) if x%2 == 0 ]</div><div class="line">print(li)</div></pre></td></tr></table></figure>
+<h2 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h2><blockquote>
+<p>通过列表生成式，我们可以直接创建一个列表。但是，受到内存限制，列表容量肯定是有限的，而且，创建一个包含100万个元素的列表，不仅占用很大的存储空间，如果我们仅仅需要访问前面几个元素，那后面绝大多数元素占用的空间都白白浪费了。</p>
+<p>所以，如果列表元素可以按照某种算法推算出来，那我们是否可以在循环的过程中不断算出后续的元素呢？这样就不必创建完整的list，从而节省大量的空间，在Python中，这种一边循环一边计算的机制，称为生成器(Generator)</p>
+<p>要创建一个生成器，有很多种方法，第一种方法是把一个列表生成式的[]改成（），就创建了一个生成器</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"># 例如把上面的</div><div class="line">li = [ x*x for x in xrange(1, 101) if x%2 == 0 ]</div><div class="line"></div><div class="line"># 换成下面这样，就创建了一个生成器</div><div class="line">lt = ( x*x for x in xrange(1, 101) if x%2 == 0 )</div><div class="line">print(type(lt))</div><div class="line"></div><div class="line"># print(lt.next())</div><div class="line"></div><div class="line">for i in lt:</div><div class="line">    print(i)</div></pre></td></tr></table></figure>
+<blockquote>
+<p>另一种方法，如果一个函数定义中包含yield关键字，那么这个函数就不是一个普通函数，而是一个生成器</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"># 普通函数</div><div class="line"></div><div class="line">def fib(n):</div><div class="line">    num == 0</div><div class="line">    i = 0</div><div class="line">    while( i &lt; n ):</div><div class="line">        sum = sum + i</div><div class="line">        i += 1</div><div class="line">        print(sum)</div><div class="line"></div><div class="line">fib(10)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"># 函数中定义列表生成器</div><div class="line"></div><div class="line">def fib(n):</div><div class="line">    num == 0</div><div class="line">    i = 0</div><div class="line">    while( i &lt; n ):</div><div class="line">        sum = sum + i</div><div class="line">        i += 1</div><div class="line">        yield(sum)</div><div class="line"></div><div class="line">print(type(fib(10))</div><div class="line"></div><div class="line">for i in fib(10):</div><div class="line">    print(x)</div><div class="line"></div><div class="line"># 结果和上面的一样，但是有什么不同呢。包含yield语句的函数会被特地编译成生成器。当函数被调用时，他们返回一个生成器对象，这个对象支持迭代器接口。每当遇到yield关键字的时候，你可以理解为函数的return语句，yield后面的值，就是返回的值。但是不像一般的函数在return后退出，生成器函数在生成值后会自动挂起并暂停他们的执行和状态，它的本地变量将保持状态信息，这些信息在函数恢复时将再度有效。下次从yield下面的部分开始执行。</div></pre></td></tr></table></figure>
+<h1 id="列表生成式和生成器的区别"><a href="#列表生成式和生成器的区别" class="headerlink" title="列表生成式和生成器的区别"></a>列表生成式和生成器的区别</h1><p><strong>生成式：</strong>一次性生成所有的数据，然后保存在内存中，适合小量的数据。</p>
+<p><strong>生成器：</strong>返回一个可迭代的对象，及“generator”对象，必须通过循环才可以一一列出所有结果</p>
+<p><strong>可迭代对象：</strong>可以通过循环调用出来的，就是可迭代对象</p>
+<p><strong>迭代器：</strong>必须通过next()调用的，被next()函数调用并不断返回下一个值的对象称为迭代器。</p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2017-11-01-function.html">函数</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 shen 的个人博客">shen</a></p>
+  <p><span>发布时间:</span>2017年11月01日 - 21:11</p>
+  <p><span>最后更新:</span>2017年11月06日 - 23:11</p>
+  <p><span>原始链接:</span><a href="/2017-11-01-function.html" title="函数">https://szone2.github.io/2017-11-01-function.html</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://szone2.github.io/2017-11-01-function.html"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+	clipboard.on('success', $(function(){
+	  $(".fa-clipboard").click(function(){
+		swal({   
+		  title: "",   
+		  text: '复制成功',   
+		  html: false,
+		  timer: 500,   
+		  showConfirmButton: false
+	    });
+	  });
+    }));  
+</script>
+
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017-10-30-review1.html" rel="next" title="复习1">
+                <i class="fa fa-chevron-left"></i> 复习1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017-11-03-class.html" rel="prev" title="class">
+                class <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">shen</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#函数的一般形式"><span class="nav-number">1.</span> <span class="nav-text">函数的一般形式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数的参数"><span class="nav-number">2.</span> <span class="nav-text">函数的参数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#高阶函数"><span class="nav-number">3.</span> <span class="nav-text">高阶函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#map-函数"><span class="nav-number">3.1.</span> <span class="nav-text">map()函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reduce-函数"><span class="nav-number">3.2.</span> <span class="nav-text">reduce()函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#filter-函数"><span class="nav-number">3.3.</span> <span class="nav-text">filter()函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sorted-函数"><span class="nav-number">3.4.</span> <span class="nav-text">sorted()函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#匿名函数（没有名字的函数）"><span class="nav-number">4.</span> <span class="nav-text">匿名函数（没有名字的函数）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#列表生成式和生成器"><span class="nav-number">5.</span> <span class="nav-text">列表生成式和生成器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#列表生成式"><span class="nav-number">5.1.</span> <span class="nav-text">列表生成式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成器"><span class="nav-number">5.2.</span> <span class="nav-text">生成器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#列表生成式和生成器的区别"><span class="nav-number">6.</span> <span class="nav-text">列表生成式和生成器的区别</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shen</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="socket," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Socket网络编程">
+<meta name="keywords" content="socket">
+<meta property="og:type" content="article">
+<meta property="og:title" content="socket网络编程(1)">
+<meta property="og:url" content="https://szone2.github.io/2018-01-15-socket1.html">
+<meta property="og:site_name" content="Python 学习博客">
+<meta property="og:description" content="Socket网络编程">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-15T15:55:08.670Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="socket网络编程(1)">
+<meta name="twitter:description" content="Socket网络编程">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://szone2.github.io/2018-01-15-socket1.html"/>
+
+
+
+
+
+  <title>socket网络编程(1) | Python 学习博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Python 学习博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://szone2.github.io/2018-01-15-socket1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Python 学习博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">socket网络编程(1)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-15T23:53:15+08:00">
+                2018-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Socket网络编程"><a href="#Socket网络编程" class="headerlink" title="Socket网络编程"></a>Socket网络编程</h1><a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">TCP可靠性的实现：</div><div class="line">（1）校验码</div><div class="line">（2）接收方反馈</div><div class="line">（3）信息包附带序号</div><div class="line"></div><div class="line">UDP：</div><div class="line">（1）快 不需要花费时间建立和关闭连接</div><div class="line">（2）偶尔丢失一两个消息包无所谓，但是TCP会严格检查</div><div class="line">（3）UDP的限制是一个信息包不超过64KB的数据</div><div class="line"></div><div class="line">TCP和UDP区别就是UDP不建立连接，只保证数据的完整性，数据传输快，但是不保证数据是否真的被收到，也不保证数据是够只接收一次，也不保证次序。</div><div class="line"></div><div class="line">服务端是用来给一个或者多个客户端提供服务的，当客户端发起请求，开始等待服务端的返回结果，服务端接受完请求以后，根据自己的逻辑进行处理请求，并返回给客户端，客户端接收到返回结果以后，关闭和服务端的连接。</div><div class="line"></div><div class="line">最常用个客户端和服务端有两种模式C/S（mysql）模式和B/S模式（网站）</div></pre></td></tr></table></figure>
+<p>假如客户端有N个socket，则服务端有N + 1 个socket</p>
+<p>客户端每发起一个socket连接，服务端就会创建一个socket</p>
+<h1 id="socket简介"><a href="#socket简介" class="headerlink" title="socket简介"></a>socket简介</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">绑定地址：   bind(address)</div><div class="line"># 0.0.0.0表示绑定服务器上任何一个地址</div><div class="line">address = (‘0.0.0.0’, 8009)</div><div class="line">s.bind(address) 或者s.bind((‘0.0.0.0’, 8009))</div><div class="line">address 必须是一个元组，容易错误，address = （host，port）</div><div class="line">host：服务端ip，字符串类型， 如果为0.0.0.0  代表本机的任意一个ip</div><div class="line">port：服务端提供的端口， 整型， 0-1024为系统保留</div><div class="line"></div><div class="line">监听消息：  </div><div class="line">s.listen(badklog)</div><div class="line">backlog代表可以同时接受多少个socket连接</div><div class="line"></div><div class="line">接受连接：</div><div class="line">conn, addr = s.accept()</div><div class="line">接受连接并返回元组(conn, addr), 其中conn是新的套接字对象，每一个新的连接就创建一个新的对象。可以用来接受和发送数据，addr是客户端的地址。包含host和port</div><div class="line"></div><div class="line">发送数据:</div><div class="line">s.send(string)	         发送字符串到连接的套接字，可能未将指定内容全部发送</div><div class="line">s.sendall(string)      内部递归调用send，将所有内容发送出去，建议使用。</div><div class="line"></div><div class="line">接收数据：</div><div class="line">data = s.recv(bufsize)</div><div class="line">接收套接字数据，数据以字符串形式返回，bufsize指定最多接收的数据量，可以使用1024， 2048</div><div class="line">如果不知道接收的数量有多少，可能几个字节，可能几M，一般通过循环接收</div><div class="line"></div><div class="line">UDP:</div><div class="line">s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)</div><div class="line">s.sendto(string)</div><div class="line">data, address = s.recvfrom(bufsize)</div><div class="line"></div><div class="line">客户端：</div><div class="line">客户端首先也要创建socket套接字</div><div class="line">s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</div><div class="line">客户端连接服务端函数：</div><div class="line">s.connect(address)        		连接到address的套接字</div><div class="line">result = connect_ex(address)		成功返回0，失败返回错误码（推荐使用）</div><div class="line"></div><div class="line">通用：</div><div class="line">s.close()    			关闭socket套接字</div><div class="line">s.getsocketname()                   获取套接字的名字</div><div class="line">s.settimeout(timeout)		设置套接字超时时间，timeout为float类型，单位为秒。</div><div class="line">s.gettimeout() 			获得套接字超时时间</div><div class="line"></div><div class="line">通用：</div><div class="line">s.setblocking(flag)</div><div class="line">flage为bool值</div><div class="line">setblocking(True) is equivalent to settimeout(None); 相当于不设置超时时间，一直阻塞在那里</div><div class="line">setblocking(False) is equivalent to settimeout(0.0). 相当于设置超时时间为0, 如果设置False，那么accept和recv时一旦无数据，则报错。</div><div class="line"></div><div class="line">s.fileno()</div><div class="line">返回套接字的文件描述符（一个小整数）。这对于select.select()是有用的。</div></pre></td></tr></table></figure>
+<h1 id="socket常用函数讲解"><a href="#socket常用函数讲解" class="headerlink" title="socket常用函数讲解"></a>socket常用函数讲解</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">创建套接字</div><div class="line">s = socket.socket(address_family, socket_type)</div><div class="line">address family： </div><div class="line">socket.AF_INET       	默认ipv4</div><div class="line">socket.AF_INET6	     	ipv6</div><div class="line">socket.AF_UNIX   	只能用于单一的unix系统进行间通信</div><div class="line">socket type：</div><div class="line">socket.SOCK_STREAM	流式socket，TCP</div><div class="line">socket.SOCK_DGRAM	数据报是socket   UDP</div><div class="line"></div><div class="line">TCP:</div><div class="line">s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</div></pre></td></tr></table></figure>
+<h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><p>模拟httpclient， 访问百度</p>
+<p>写一个简单的类似ssh的程序</p>
+<p>每一个accept，接收到套接字链接以后，分别用多线程来处理不同的客户端</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">import socket</div><div class="line"></div><div class="line">import time</div><div class="line"></div><div class="line"></div><div class="line">class InitSocketTest(object):</div><div class="line">    def __init__(self, host, port, type):</div><div class="line">        self.host = host</div><div class="line">        self.port = port</div><div class="line">        self.address = (host, port)</div><div class="line">        self.type = type</div><div class="line">        self.s = None</div><div class="line">        self.creatsocket()</div><div class="line"></div><div class="line">    def creatsocket(self):</div><div class="line">        if self.type.upper() == &quot;TCP&quot;:</div><div class="line">            self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</div><div class="line">        elif self.type.upper() == &quot;UDP&quot;:</div><div class="line">            self.s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)</div><div class="line">        else:</div><div class="line">            print(&quot;you must input the InitSocket(type) is &apos;UDP|TCP&apos; &quot;)</div><div class="line"></div><div class="line">class SocketServerTest(InitSocketTest):</div><div class="line">    def __init__(self, host, port, type,  backlog):</div><div class="line">        self.backlog = backlog</div><div class="line">        super(SocketServerTest, self).__init__(host, port, type)</div><div class="line">        self.clientAddress = None</div><div class="line"></div><div class="line">    def run(self):</div><div class="line">        self.s.bind(self.address)</div><div class="line">        self.s.listen(self.backlog)</div><div class="line">        print(&quot;server starting…………&quot;)</div><div class="line">        conn, self.clientAddress = self.s.accept()</div><div class="line">        print(&quot;accept connect from &#123;0&#125;&quot;.format(self.clientAddress))</div><div class="line">        for i in range(1, 10):</div><div class="line">            conn.sendall(&quot;i = &#123;0&#125;&quot;.format(str(i)).encode(&quot;utf-8&quot;))</div><div class="line">        self.s.close()</div><div class="line"></div><div class="line">class ClientSocketTest(InitSocketTest):</div><div class="line">    def run(self):</div><div class="line">        self.s.connect(self.address)</div><div class="line">        stat = 1</div><div class="line">        while 1:</div><div class="line">            data = self.s.recv(2048)</div><div class="line">            if len(data)&gt;0:</div><div class="line">                stat = 1</div><div class="line">                print(data.decode(&quot;utf-8&quot;))</div><div class="line">            else:</div><div class="line">                stat += 1</div><div class="line">                time.sleep(1)</div><div class="line">                if stat == 5:</div><div class="line">                    break</div></pre></td></tr></table></figure>
+<p>新建一个testserver.py（服务端）调用上面封装好的类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">from code.util import SocketServerTest</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    socketServer = SocketServerTest(host=&quot;0.0.0.0&quot;, port=9999, type=&quot;tcp&quot;, backlog=5)</div><div class="line">socketServer.run()</div></pre></td></tr></table></figure>
+<p>新建一个testclient.py（客户端）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">from code.util import ClientSocketTest</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    socketClient = ClientSocketTest(host=&quot;127.0.0.1&quot;, port=9999, type=&quot;tcp&quot;)</div><div class="line">socketClient.run()</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2018-01-15-socket1.html">socket网络编程(1)</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 shen 的个人博客">shen</a></p>
+  <p><span>发布时间:</span>2018年01月15日 - 23:01</p>
+  <p><span>最后更新:</span>2018年01月15日 - 23:01</p>
+  <p><span>原始链接:</span><a href="/2018-01-15-socket1.html" title="socket网络编程(1)">https://szone2.github.io/2018-01-15-socket1.html</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://szone2.github.io/2018-01-15-socket1.html"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+	clipboard.on('success', $(function(){
+	  $(".fa-clipboard").click(function(){
+		swal({   
+		  title: "",   
+		  text: '复制成功',   
+		  html: false,
+		  timer: 500,   
+		  showConfirmButton: false
+	    });
+	  });
+    }));  
+</script>
+
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/socket/" rel="tag"># socket</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017-12-26-live2017-12-26.html" rel="next" title="live2017-12-26">
+                <i class="fa fa-chevron-left"></i> live2017-12-26
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018-01-15-Message-queue.html" rel="prev" title="消息队列">
+                消息队列 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">shen</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Socket网络编程"><span class="nav-number">1.</span> <span class="nav-text">Socket网络编程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#socket简介"><span class="nav-number">2.</span> <span class="nav-text">socket简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#socket常用函数讲解"><span class="nav-number">3.</span> <span class="nav-text">socket常用函数讲解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#练习"><span class="nav-number">4.</span> <span class="nav-text">练习</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shen</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

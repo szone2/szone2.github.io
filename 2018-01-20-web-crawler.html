@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="web_crawler," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="爬虫网络爬虫（又被称为网页蜘蛛，网络机器人），是一种安装一定的规则，自动地抓取万维网信息的程序或脚本。另外一些不常使用的名字还有蚂蚁、自动索引，模拟程序或者蠕虫。 通过代码模拟浏览器访问网站的过程，实现自动化获取所需的数据。">
+<meta name="keywords" content="web_crawler">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爬虫">
+<meta property="og:url" content="https://szone2.github.io/2018-01-20-web-crawler.html">
+<meta property="og:site_name" content="Python 学习博客">
+<meta property="og:description" content="爬虫网络爬虫（又被称为网页蜘蛛，网络机器人），是一种安装一定的规则，自动地抓取万维网信息的程序或脚本。另外一些不常使用的名字还有蚂蚁、自动索引，模拟程序或者蠕虫。 通过代码模拟浏览器访问网站的过程，实现自动化获取所需的数据。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-20T03:17:53.670Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="爬虫">
+<meta name="twitter:description" content="爬虫网络爬虫（又被称为网页蜘蛛，网络机器人），是一种安装一定的规则，自动地抓取万维网信息的程序或脚本。另外一些不常使用的名字还有蚂蚁、自动索引，模拟程序或者蠕虫。 通过代码模拟浏览器访问网站的过程，实现自动化获取所需的数据。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://szone2.github.io/2018-01-20-web-crawler.html"/>
+
+
+
+
+
+  <title>爬虫 | Python 学习博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Python 学习博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://szone2.github.io/2018-01-20-web-crawler.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Python 学习博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">爬虫</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-20T11:17:05+08:00">
+                2018-01-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="爬虫"><a href="#爬虫" class="headerlink" title="爬虫"></a>爬虫</h1><p>网络爬虫（又被称为网页蜘蛛，网络机器人），是一种安装一定的规则，自动地抓取万维网信息的程序或脚本。另外一些不常使用的名字还有蚂蚁、自动索引，模拟程序或者蠕虫。</p>
+<p>通过代码模拟浏览器访问网站的过程，实现自动化获取所需的数据。</p>
+<a id="more"></a>
+<h1 id="爬虫基础知识"><a href="#爬虫基础知识" class="headerlink" title="爬虫基础知识"></a>爬虫基础知识</h1><p>在学习爬虫之前，我们先来了解http定义的与服务器交互的几种方法：</p>
+<p>两种 HTTP 请求方法：GET 和 POST。在客户机和服务器之间进行请求-响应时，两种最常被用到的方法是：GET 和 POST。</p>
+<p>GET - 从指定的资源请求数据。</p>
+<p>POST - 向指定的资源提交要被处理的数据</p>
+<p>打开谷歌浏览器，按F12，选择Network，勾上Preserve log（作用是让控制台在刷新页面后仍然保留已输出的控制台信息。）</p>
+<p>response headers 是网站响应的头信息</p>
+<p>request headers 是我们请求的头信息</p>
+<p>User-Agent：中文名为用户代理，简称 UA，它是一个特殊字符串头，使得服务器能够识别客户使用的操作系统及版本、CPU 类型、浏览器及版本、浏览器渲染引擎、浏览器语言、浏览器插件等。</p>
+<h1 id="requests模块"><a href="#requests模块" class="headerlink" title="requests模块"></a>requests模块</h1><p>安装requests模块：pip install requests</p>
+<p>requests官方教程：<a href="http://docs.python-requests.org/zh_CN/latest/user/quickstart.html" target="_blank" rel="external">http://docs.python-requests.org/zh_CN/latest/user/quickstart.html</a></p>
+<p><a href="http://httpbin.org是requests相关教程地址，通过json方式返回。可以看到我们返回的数据。" target="_blank" rel="external">http://httpbin.org是requests相关教程地址，通过json方式返回。可以看到我们返回的数据。</a></p>
+<p>requests需要传送的很多参数都是通过字典的形式进行传输。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">import requests</div><div class="line"></div><div class="line"># requests的各种方法</div><div class="line"></div><div class="line">param = &#123;&quot;key1&quot;: &quot;hello&quot;, &quot;key2&quot;:&quot;world&quot;&#125;</div><div class="line">url = &quot;http://www.baidu.com&quot;</div><div class="line">r = requests.get(url=url, params=param)</div><div class="line"># 请求的url是什么</div><div class="line">print(r.url)</div><div class="line"></div><div class="line"># 头部信息</div><div class="line">print(r.headers)</div><div class="line"></div><div class="line"># content和text的区别：text是获取页面的所有前端源码（字符串形式），content是二进制形式的源码</div><div class="line">print(r.content)</div><div class="line">print(r.text)</div><div class="line"></div><div class="line"># post不会在url添加任何内容，直接把数据打包在requests里发送出去</div><div class="line"># data是字典类型</div><div class="line">r1 = requests.post(url=url, data=param)</div><div class="line">print(r1.url)</div><div class="line"></div><div class="line"># cookie（什么等于什么的形式）</div><div class="line">print(r.cookie)</div><div class="line"></div><div class="line"># headers 头部信息</div><div class="line">print(r.headers)</div><div class="line"></div><div class="line"># 状态码</div><div class="line">print(r.status_code)</div><div class="line">print(r.request)</div><div class="line"></div><div class="line"># 查看编码</div><div class="line">print(r.encoding)</div></pre></td></tr></table></figure>
+<h1 id="requests-更改请求头信息："><a href="#requests-更改请求头信息：" class="headerlink" title="requests 更改请求头信息："></a>requests 更改请求头信息：</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">import requests</div><div class="line"></div><div class="line"># 有些网站没有user-agent是不能访问的（例如糗事百科，csdn)，所以爬的时候最好加上user-agent</div><div class="line"></div><div class="line">header = &#123;&apos;User-Agent&apos;: &apos;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36&apos;&#125;</div><div class="line"></div><div class="line"># get的时候通过headers参数传进去即可</div><div class="line">r = requests.get(&apos;https://www.qiushibaike.com/&apos;, headers=header)</div><div class="line"></div><div class="line">print(r.text)</div><div class="line">print(r.headers)</div><div class="line"></div><div class="line"># 在网上收集各种浏览器的user-agent信息，把这些信息存储在一个list中，然后通过random模块随机取一个header信息进行访问，防止反爬虫操作。</div></pre></td></tr></table></figure>
+<h1 id="requests的会话对象"><a href="#requests的会话对象" class="headerlink" title="requests的会话对象"></a>requests的会话对象</h1><p>s = requests.session()</p>
+<p>python2还可以这样写：s = requests.Session()</p>
+<p>在一次会话中，所有的会话信息都保存在s中，只需要对s进行操作即可，例如：</p>
+<p>s.get(url)</p>
+<p>s.post(url)</p>
+<h1 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h1><p>cookie的常用属性：</p>
+<p>Domain 域</p>
+<p>Path 路径</p>
+<p>Expires 过期时间</p>
+<p>name 对应的key值</p>
+<p>value key对应的value值</p>
+<p>cookie中的domain代表的是cookie所在的域，默认情况下就是请求的域名，例如请求<a href="https://baidu.com，那么响应中的set-Cookie默认会用baidu.com作为cookie的domain，在浏览器中也是按照domain来组织cookie的。" target="_blank" rel="external">https://baidu.com，那么响应中的set-Cookie默认会用baidu.com作为cookie的domain，在浏览器中也是按照domain来组织cookie的。</a></p>
+<p>我们可以在响应中设置cookie的domain为其他域，但是浏览器并不会去保存这些domain为其他域的cookie</p>
+<p>cookie中的path能进一步的控制cookie的访问，当path=/; 当前域的所有请求都可以访问到这个cookie。如果path设为其他值，比如path=/test，那么只有/test下面的请求可以访问到这个cookie。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">import requests</div><div class="line"></div><div class="line"># cookie是字典的形式</div><div class="line"></div><div class="line">url = &quot;https://www.hao123.com&quot;</div><div class="line">s = requests.session()</div><div class="line">r = s.get(url)</div><div class="line">print(r.cookies)</div><div class="line">for cook in r.cookies:</div><div class="line">    print(cook.name)</div><div class="line">    print(cook.value)</div><div class="line">    print(cook.domain)</div><div class="line">    print(cook.path)</div><div class="line">    print(cook.expires)</div><div class="line">    print(&quot;#&quot; * 32)</div></pre></td></tr></table></figure>
+<h1 id="如何带着cookie信息访问网站"><a href="#如何带着cookie信息访问网站" class="headerlink" title="如何带着cookie信息访问网站"></a>如何带着cookie信息访问网站</h1><p>cookie信息携带在request headers中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">import requests</div><div class="line"></div><div class="line">url = &apos;http://httpbin.org/cookies&apos;</div><div class="line">r = requests.get(url, cookies=&#123;&apos;key1&apos;:&apos;value1&apos;, &apos;key2&apos;:&apos;value2&apos;&#125;)</div><div class="line">print(r.text)</div></pre></td></tr></table></figure>
+<p>结果：</p>
+<p>{<br>  “cookies”: {<br>    “key1”: “value1”,<br>    “key2”: “value2”<br>  }<br>}</p>
+<h1 id="小练习"><a href="#小练习" class="headerlink" title="小练习"></a>小练习</h1><p>爬www.xicidaili.com中的IP 端口 类型 是否可用</p>
+<h1 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">import requests</div><div class="line"></div><div class="line"># url = &quot;http://2017.ip138.com/ic.asp&quot;</div><div class="line"># s = requests.session()</div><div class="line"># result = s.get(url=url)</div><div class="line"># # 查看所爬网页的编码形式</div><div class="line"># print(result.encoding)</div><div class="line"># # 修改所爬内容编码形式，防止出现乱码</div><div class="line"># result.encoding = &quot;gb2312&quot;</div><div class="line"># print(result.text)</div><div class="line"></div><div class="line"># 代理</div><div class="line">url = &quot;http://2017.ip138.com/ic.asp&quot;</div><div class="line">proxies = &#123;&quot;http&quot;:&quot;http://122.225.17.123:8080&quot;&#125;</div><div class="line">r1 = requests.get(url=url, proxies=proxies)</div><div class="line">print(r1.encoding)</div><div class="line">r1.encoding = &quot;gbk&quot;</div><div class="line">print(r1.text)</div></pre></td></tr></table></figure>
+<h1 id="urllib模块"><a href="#urllib模块" class="headerlink" title="urllib模块"></a>urllib模块</h1><p>在python2和python3中的差异</p>
+<p>在python2中，urllib和urllib2各有各的功能，虽然urllib2是urllib的升级版，但是urllib2还是不能完全带urllib，但是在python3中，全部封装成一个类，urllib</p>
+<p>urllib2可以接受一个Requests对象，并以此来设置一个URL的headers，但是urllib只接受一个URL。这就意味着你不能通过urllib伪装自己的请求头。</p>
+<p>Urllib模板可以提供运行urlencode的方法，该方法用于GET查询字符串的生成，urllib2不具备这样的功能，而且urllib.quote等一系列quote和unquote功能没有被加入urllib2中。因此有时也需要urllib的辅助。这就是urllib和urllib2一起使用的原因。</p>
+<p>quote用来做url转码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"># python2</div><div class="line"># import urllib.urlopen(url)</div><div class="line"># import urllib2</div><div class="line"># urllib2.Request</div><div class="line"># data = urllib.encode(data)</div><div class="line"># data = &#123;&quot;key1&quot;: &quot;hello&quot;, &quot;key2&quot;: &quot;world&quot;&#125;</div><div class="line"></div><div class="line"># python3</div><div class="line">import urllib.request</div><div class="line">url = &quot;https://www.qiushibaike.com/&quot;</div><div class="line">headers&#123;&quot;&quot;&#125;</div><div class="line">ndata = parse.urlencode(data)</div><div class="line"></div><div class="line">urllib.request.Request(url=url, data=ndata)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">import urllib2</div><div class="line">import urllib</div><div class="line"></div><div class="line">data = &#123;&apos;key1&apos;:&apos;value1&apos;, &apos;key2&apos;:&apos;value2&apos;&#125;</div><div class="line">ndata = urllib.urlencode(data)</div><div class="line">header = &#123;&apos;User-Agent&apos;: &apos;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36&apos;&#125;</div><div class="line"></div><div class="line">url = &quot;https://www.qiushibaike.com/&quot;</div><div class="line">req = urllib2.Requests(url, headers=header)</div><div class="line">res = urllib2.urlopen(req)</div><div class="line">print(res.read())</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2018-01-20-web-crawler.html">爬虫</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 shen 的个人博客">shen</a></p>
+  <p><span>发布时间:</span>2018年01月20日 - 11:01</p>
+  <p><span>最后更新:</span>2018年01月20日 - 11:01</p>
+  <p><span>原始链接:</span><a href="/2018-01-20-web-crawler.html" title="爬虫">https://szone2.github.io/2018-01-20-web-crawler.html</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://szone2.github.io/2018-01-20-web-crawler.html"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+	clipboard.on('success', $(function(){
+	  $(".fa-clipboard").click(function(){
+		swal({   
+		  title: "",   
+		  text: '复制成功',   
+		  html: false,
+		  timer: 500,   
+		  showConfirmButton: false
+	    });
+	  });
+    }));  
+</script>
+
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web-crawler/" rel="tag"># web_crawler</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018-01-15-Message-queue.html" rel="next" title="消息队列">
+                <i class="fa fa-chevron-left"></i> 消息队列
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018-03-24-中国现有服务器总数.html" rel="prev" title="中国现有服务器总数">
+                中国现有服务器总数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">shen</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#爬虫"><span class="nav-number">1.</span> <span class="nav-text">爬虫</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#爬虫基础知识"><span class="nav-number">2.</span> <span class="nav-text">爬虫基础知识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#requests模块"><span class="nav-number">3.</span> <span class="nav-text">requests模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#requests-更改请求头信息："><span class="nav-number">4.</span> <span class="nav-text">requests 更改请求头信息：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#requests的会话对象"><span class="nav-number">5.</span> <span class="nav-text">requests的会话对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#cookie"><span class="nav-number">6.</span> <span class="nav-text">cookie</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何带着cookie信息访问网站"><span class="nav-number">7.</span> <span class="nav-text">如何带着cookie信息访问网站</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小练习"><span class="nav-number">8.</span> <span class="nav-text">小练习</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代理"><span class="nav-number">9.</span> <span class="nav-text">代理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#urllib模块"><span class="nav-number">10.</span> <span class="nav-text">urllib模块</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shen</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

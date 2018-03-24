@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="true," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="import为了方便管理方便管理模块，python中又引了包（Package）这个概念。每个包下面都有一个__init__.py文件，这个文件是必须存在的，否则，Python就把这个目录当成普通目录，而不是一个包。__init__.py可以是空文件，也可以有Python代码，因为__init__.py本身就是一个模块，举个例子：test目录下面有__init__.py， aaa.py，bbb.py">
+<meta name="keywords" content="true">
+<meta property="og:type" content="article">
+<meta property="og:title" content="modules">
+<meta property="og:url" content="https://szone2.github.io/2017-11-09-modules.html">
+<meta property="og:site_name" content="Python 学习博客">
+<meta property="og:description" content="import为了方便管理方便管理模块，python中又引了包（Package）这个概念。每个包下面都有一个__init__.py文件，这个文件是必须存在的，否则，Python就把这个目录当成普通目录，而不是一个包。__init__.py可以是空文件，也可以有Python代码，因为__init__.py本身就是一个模块，举个例子：test目录下面有__init__.py， aaa.py，bbb.py">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-10T15:19:44.812Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="modules">
+<meta name="twitter:description" content="import为了方便管理方便管理模块，python中又引了包（Package）这个概念。每个包下面都有一个__init__.py文件，这个文件是必须存在的，否则，Python就把这个目录当成普通目录，而不是一个包。__init__.py可以是空文件，也可以有Python代码，因为__init__.py本身就是一个模块，举个例子：test目录下面有__init__.py， aaa.py，bbb.py">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://szone2.github.io/2017-11-09-modules.html"/>
+
+
+
+
+
+  <title>modules | Python 学习博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Python 学习博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://szone2.github.io/2017-11-09-modules.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Python 学习博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">modules</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-09T21:43:08+08:00">
+                2017-11-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="import"><a href="#import" class="headerlink" title="import"></a>import</h1><p>为了方便管理方便管理模块，python中又引了包（Package）这个概念。每个包下面都有一个__init__.py文件，这个文件是必须存在的，否则，Python就把这个目录当成普通目录，而不是一个包。__init__.py可以是空文件，也可以有Python代码，因为__init__.py本身就是一个模块，举个例子：test目录下面有__init__.py， aaa.py，bbb.py三个文件，如下所示：</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">[root@localhost ~]# tree test</div><div class="line">test</div><div class="line">├── aaa.py</div><div class="line">├── bbb.py</div><div class="line">└── __init__.py</div><div class="line"></div><div class="line">0 directories, 3 files</div></pre></td></tr></table></figure>
+<h2 id="import导入"><a href="#import导入" class="headerlink" title="import导入"></a>import导入</h2><p>有时候一个文件或者一个包中已经出现了一个函数，我们在另一个python代码中需要引入该文件或者该文件的某个函数，那怎么解决呢？python给我们提供一个关键字import，下面我们来了解一下它的用法：<br>1，    如果是本地导入文件，直接使用：import filename<br>2，    如果导入的是一个包，该包下面必须是有__init__.py文件才可以导入，否则报错，只有有了__init__.py文件，python解析器才会把这个目录当成是的包<br>常用的导入模块常用的格式：<br>form xxx import xxx<br>import xxx<br>在导入的时候，.py的后缀直接省略，如果是多级的包，或者想导入包里面的函数等，可以使用from进行导入，举个例子：<br>from aaa import bbb<br>import os<br>解释：第一个例子是导入aaa包下面的bbb模块或者导入aaa文件下面的bbb类或者函数<br>第二个import是直接导入系统模块os模块</p>
+<p># import 一般我们用作导入模块来用，常用的快捷键是alt + enter可以直接导入模块</p>
+<p># from … import … 这个是从什么模块中导入什么,最终你可以导入的是一个函数，也可以是一个类，也可以是一个模块。</p>
+<p>总结：就是一层一层的调用就可以了</p>
+<p><strong>注意</strong> import后面导入的是什么，在调用时就必须写什么，除非你用from进行导入。</p>
+<h1 id="datetime模块"><a href="#datetime模块" class="headerlink" title="datetime模块"></a>datetime模块</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"># The distinction between naive and aware doesn’t apply to timedelta objects.</div><div class="line"></div><div class="line"># Subclass relationships:</div><div class="line"></div><div class="line"># object</div><div class="line">#    timedelta</div><div class="line">#    tzinfo</div><div class="line">#    time</div><div class="line">#    date</div><div class="line">#        datetime</div><div class="line"># time</div><div class="line"># 在 Python 文档里，time是归类在Generic Operating System Services中，换句话说，它提供的功能是更加接近于操作系统层面的。通读文档可知，time 模块是围绕着 Unix Timestamp 进行的。</div><div class="line"></div><div class="line"># time模块基本不用于取时间，取时间推荐使用datetime模块</div><div class="line"></div><div class="line"># time独有的用法：</div><div class="line"></div><div class="line">for i in xrange(1, 10):</div><div class="line">    print(i)</div><div class="line">    time.sleep(3)</div><div class="line"></div><div class="line"># datetime</div><div class="line"></div><div class="line">from datetime import datetime</div><div class="line"></div><div class="line">now_time = datetime.now()</div><div class="line"></div><div class="line">print(now_time)</div><div class="line"></div><div class="line"># 自定义时间格式</div><div class="line"></div><div class="line">new_t = now_time.strftime(&apos;%Y-%m-%d %H:%M:%S&apos;)</div><div class="line"></div><div class="line"># 标准时间格式</div><div class="line"></div><div class="line">a = now_time.strftime(&apos;%c&apos;)</div><div class="line"></div><div class="line">print(new_t)</div><div class="line"></div><div class="line"># now 获取当前的时间，strftime用来表示显示时间的格式</div><div class="line"></div><div class="line"></div><div class="line"># 如果我们要取昨天或明天的时间，可以使用timedelay</div><div class="line"></div><div class="line">now_time2 = datetime.now()</div><div class="line"></div><div class="line">yesterday = now_time + timedelta(days = -1)</div><div class="line"></div><div class="line">tomorrow_1 = now_time + timedelta(days = +1)</div><div class="line"></div><div class="line">tomorrow = tomorrow_1.strftime(&apos;%Y-%m-%d&apos;)</div><div class="line"></div><div class="line">print(yesterday)</div><div class="line"></div><div class="line">print(tomorrow)</div></pre></td></tr></table></figure>
+<h1 id="时间格式的相互转换"><a href="#时间格式的相互转换" class="headerlink" title="时间格式的相互转换"></a>时间格式的相互转换</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">from datetime import datetime</div><div class="line"></div><div class="line">now_time = datetime.now()</div><div class="line">print(now_time)</div><div class="line">print(type(now_time))</div><div class="line"></div><div class="line"># 时间对象转换为字符串</div><div class="line">_time = datetime.strftime(now_time, &apos;%Y-%m-%d&apos;)</div><div class="line">print(_time)</div><div class="line">print(type(_time))</div><div class="line"></div><div class="line"># 字符串转换为时间对象</div><div class="line"></div><div class="line">_dtime = datetime.strptime(_time, &apos;%Y-%m-%d&apos;)</div><div class="line">print(_dtime)</div><div class="line">print(type(_dtime))</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">import time</div><div class="line"></div><div class="line"># 时间戳转换为时间对象</div><div class="line"></div><div class="line">_a = time.time()</div><div class="line">print(_a)</div><div class="line"></div><div class="line">_n_time = datetime.fromtimestamp(_a)</div><div class="line"></div><div class="line">print(_n_time)</div><div class="line">print(type(_n_time))</div></pre></td></tr></table></figure>
+<h1 id="logging的使用"><a href="#logging的使用" class="headerlink" title="logging的使用"></a>logging的使用</h1><blockquote>
+<p>日志是我们排查问题的关键利器，写好日志记录，当我们发生问题时，可以快速定位代码范围进行修改。Python有给我们开发者们提供好的日志模块，下面我们就来介绍一下logging模块：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">import logging</div><div class="line"></div><div class="line"># 默认级别是info</div><div class="line"># 日志级别顺序debug,info,warning,error,critical</div><div class="line"></div><div class="line">logging.debug(&apos;this is debug message.&apos;)</div><div class="line">logging.info(&apos;this is info message.&apos;)</div><div class="line">logging.warning(&apos;this is warning message.&apos;)</div><div class="line">logging.error(&apos;this is error message.&apos;)</div><div class="line">logging.critical(&apos;this is critical message.&apos;)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">import logging</div><div class="line"></div><div class="line">logging.basicConfig(level=logging.DEBUG, format=&apos;%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s&apos;,datefmt=&apos; %Y/%m/%d %H:%M:%S&apos;, filename=&apos;myapp.log&apos;, filemode=&apos;w&apos;)</div><div class="line"></div><div class="line">logger = logging.getLogger(__name__)</div><div class="line">logging.debug(&apos;This is debug message&apos;)</div><div class="line">logging.info(&apos;This is info message&apos;)</div><div class="line">logging.warning(&apos;This is warning message&apos;)</div><div class="line">结果：</div><div class="line">在当前文件新增了一个myapp.log文件。</div><div class="line"></div><div class="line"></div><div class="line"># 解释：</div><div class="line"># 主要是通过logging.basicConfig函数进行操作，现在我们来介绍一下该函数参数的用法：</div><div class="line"></div><div class="line"># level: 设置日志级别，默认为logging.WARNING</div><div class="line"># filename: 指定日志文件名。</div><div class="line"># filemode: 和file函数意义相同，指定日志文件的打开模式，&apos;w&apos;或&apos;a&apos;</div><div class="line"># format: 指定输出的格式和内容，format可以输出很多有用信息，如上例所示:</div><div class="line">#  %(levelname)s: 打印日志级别名称</div><div class="line">#  %(filename)s: 打印当前执行程序名</div><div class="line">#  %(funcName)s: 打印日志的当前函数</div><div class="line">#  %(lineno)d: 打印日志的当前行号</div><div class="line">#  %(asctime)s: 打印日志的时间</div><div class="line">#  %(thread)d: 打印线程ID</div><div class="line">#  %(process)d: 打印进程ID</div><div class="line">#  %(message)s: 打印日志信息</div><div class="line">#datefmt: 指定时间格式，同time.strftime()</div><div class="line">#stream: 指定将日志的输出流，可以指定输出到sys.stderr,sys.stdout或者文件，默认输出到sys.stderr，当stream和filename同时指定时，stream被忽略。</div><div class="line"></div><div class="line"># logging.getLogger(__name__)</div><div class="line"># 返回一个logger实例，如果没有指定name，返回root logger。只要name相同，返回的logger实例都是同一个而且只有一个，即name和logger实例是一一对应的。这意味着，无需把logger实例在各个模块中传递。只要知道name，就能得到同一个logger实例。</div><div class="line">logging.getLogger(__name__)。在上述实例中__name__就指的是__main__。</div></pre></td></tr></table></figure>
+<h1 id="os模块"><a href="#os模块" class="headerlink" title="os模块"></a>os模块</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">import os</div><div class="line"></div><div class="line"># os.name可判断当前系统类型</div><div class="line"># linux 系统os.name是posix</div><div class="line"># linux 系统os.name是nt</div><div class="line">print(os.name)</div><div class="line"></div><div class="line"></div><div class="line"># 执行系统命令</div><div class="line"></div><div class="line">print(os.system(&apos;ifconfig&apos;))</div><div class="line"></div><div class="line">print(os.systtem(&apos;ipconfig&apos;))</div><div class="line"></div><div class="line"># popen()方法返回的是一个文件对象，我们可以通过file.read()来获取最后系统命令最终的结果</div><div class="line"></div><div class="line">context = os.popen(&apos;ipconfig&apos;).read()</div><div class="line">print(context.find(&apos;192.168.1.100&apos;))</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">import os</div><div class="line"></div><div class="line">#获得路径</div><div class="line">print(os.getcwd())</div><div class="line"></div><div class="line">#当前目录切换到d:目录下，在切换回来</div><div class="line">os.chdir(&apos;d:&apos;)</div><div class="line">print(os.getcwd())</div><div class="line"># r不需要进行转义</div><div class="line">os.chdir(r&apos;E:\test&apos;)</div><div class="line"></div><div class="line">#列出当前目录的文件</div><div class="line">print(os.listdir(os.getcwd()))</div><div class="line"></div><div class="line">#列出E:\Python27目录下的文件</div><div class="line">print(os.listdir(&apos;E:\Python27&apos;))</div><div class="line"></div><div class="line">#在当前目录下创建abc目录</div><div class="line">os.mkdir(&apos;abc&apos;)</div><div class="line"></div><div class="line"># 删除当前目录下的1.txt文件，（如果文件不存在会报错）</div><div class="line">os.remove(&apos;1.txt&apos;)</div><div class="line"></div><div class="line">#打印操作系统的分隔符，linux系统的分隔符\n，windows系统的分隔符\r\n，mac系统的分隔符\r</div><div class="line">print(os.linesep)</div><div class="line"></div><div class="line"># E:\test\abc.txt</div><div class="line">print(os.path.join(os.getcwd(), &apos;abc.txt&apos;))</div><div class="line"></div><div class="line"># False</div><div class="line">print(os.path.islink(os.getcwd()))</div><div class="line"></div><div class="line">#只是拼接，并不出创建 # E:\test\abc.txt</div><div class="line">print(os.path.join(os.getcwd(), &apos;abc.txt&apos;))</div><div class="line"></div><div class="line">#把最后文件和目录分开# (&apos;E:\\test&apos;, &apos;abc.txt&apos;)</div><div class="line">path1 = os.path.join(os.getcwd(), &apos;abc.txt&apos;)</div><div class="line">print(os.path.split(path1))</div><div class="line"></div><div class="line">Print(os.path.splitdrive(path1))     #把最初的目录和后面分开</div><div class="line"># (&apos;E:&apos;, &apos;\\test\\abc.txt&apos;)</div><div class="line">Print(os.path.splitext(path1))       #把目录和后缀名分开</div><div class="line"># (&apos;E:\\test\\abc&apos;, &apos;.txt&apos;)</div><div class="line"></div><div class="line"># 当前目录下存在aaa目录，不创建，当前不存在aaa目录，创建aaa目录</div><div class="line"></div><div class="line">if not os.path.exists(r&apos;E:\test\aaa&apos;):</div><div class="line">    os.mkdir(r&apos;E:\test\aaa&apos;)</div><div class="line"></div><div class="line">#获得E:\test\test.py文件的目录</div><div class="line">print(os.path.dirname(r&apos;E:\test\test.py&apos;))</div></pre></td></tr></table></figure>
+<p>解释：<br>1，    os.getcwd()    获得目录的当前系统程序工作路劲<br>2，    os. chdir(‘目标目录’)    切换到目标目录<br>3，    os.listdir(‘字符串目录’)    列出字符串目录下的所有文件<br>4，    os.mkdir(‘目录’)    创建目录<br>5，    os.remove(‘1.txt’)    删除文件，文件不存在时会报错<br>6，    os.linesep    打印操作系统的分隔符，linux系统的分隔符\n，windows系统的分隔符\r\n，mac系统的分隔符\r<br>7，    os.path.join(os.getcwd(), ‘aaa’, ‘bbb’, ‘ccc’)    拼接出来多级目录：E:\test\aaa\bbb\ccc<br>8，    os.path.exists(‘目录’)    判断目录是否存在<br>9，    os.path.split(‘文件或者目录’)    把最后的一个目录或者文件和前面的目录分开，返回一个tuple<br>10，os.path.splitext(‘文件’)    把文件的后缀名和前面分开，返回一个tuple</p>
+<h1 id="commands模块"><a href="#commands模块" class="headerlink" title="commands模块"></a>commands模块</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/env python</div><div class="line">#-*-coding:utf-8-*-</div><div class="line"></div><div class="line"># commands.getoutput 的返回值只有返回结果，没法进行判断执行结果是否正常。</div><div class="line"></div><div class="line">import commands</div><div class="line"></div><div class="line">cmd = &apos;ls /home/&apos;</div><div class="line"></div><div class="line">result = commands.getoutput(cmd)</div><div class="line"></div><div class="line">print(type(result))</div><div class="line">print(result)</div><div class="line"></div><div class="line"></div><div class="line"># commands.getstatusoutput返回值是一个tuple类型</div><div class="line"># 第一个值接受状态码，返回结果是一个int类型，返回值为0说明执行正常，返回值为非0说明结果异常</div><div class="line"># 第二个值接受返回结果，返回结果是一个str类型</div><div class="line"></div><div class="line">cmd = &apos;ps xf&apos;</div><div class="line"></div><div class="line">status, result = commands.getstatusoutput(cmd)</div><div class="line"></div><div class="line">print(type(staus))</div><div class="line">print(status)</div><div class="line"></div><div class="line">print(type(result))</div><div class="line">print(result)</div></pre></td></tr></table></figure>
+<h1 id="sys模块"><a href="#sys模块" class="headerlink" title="sys模块"></a>sys模块</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"># 新建test.py文件，写入以下内容：</div><div class="line"></div><div class="line">import sys</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    print(&apos;argv[0] = &#123;0&#125;     argv [1] = &#123;1&#125;&apos;.format(sys.argv[0], sys.argv[1]))</div><div class="line">    </div><div class="line"></div><div class="line"># 执行：python test.py hello</div><div class="line">结果：</div><div class="line">argv[0] = E:/test/test.py     argv [1] = hello</div><div class="line"></div><div class="line"># 解释：和其他语言一样，python的sys模块默认是把第一个参数默认是程序本省，从第二个参数起都是代码后面跟着的参数，通过sys.arg[n]就可以获得传入到程序中的参数。</div><div class="line"></div><div class="line">sys.stdout.write(&apos;hello world\n&apos;)</div><div class="line">print(&apos;hello&apos;)</div><div class="line"></div><div class="line">name = raw_input(&quot;Please input your name: &quot;)</div><div class="line">print(&apos;hello &apos; + name)</div><div class="line">address = sys.stdin.readline(&quot;Please input your address: &quot;)</div><div class="line">print(address)</div><div class="line"></div><div class="line"># 从控制台重定向到文件</div><div class="line"># 在当前文件下新生成一个文件out.log，文件内容为hello，</div><div class="line">Import sys</div><div class="line">f_handler=open(&apos;out.log&apos;, &apos;w&apos;)</div><div class="line">sys.stdout=f_handler</div><div class="line">print &apos;hello&apos;</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/true/" rel="tag"># true</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017-11-06-abnormal.html" rel="next" title="abnormal">
+                <i class="fa fa-chevron-left"></i> abnormal
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017-11-13-json.html" rel="prev" title="json">
+                json <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">shen</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#import"><span class="nav-number">1.</span> <span class="nav-text">import</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#import导入"><span class="nav-number">1.1.</span> <span class="nav-text">import导入</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#datetime模块"><span class="nav-number">2.</span> <span class="nav-text">datetime模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#时间格式的相互转换"><span class="nav-number">3.</span> <span class="nav-text">时间格式的相互转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#logging的使用"><span class="nav-number">4.</span> <span class="nav-text">logging的使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#os模块"><span class="nav-number">5.</span> <span class="nav-text">os模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#commands模块"><span class="nav-number">6.</span> <span class="nav-text">commands模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sys模块"><span class="nav-number">7.</span> <span class="nav-text">sys模块</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shen</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

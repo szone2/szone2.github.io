@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="多进程消息队列">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="queue">
+<meta property="og:url" content="https://szone2.github.io/2017-12-15-queue.html">
+<meta property="og:site_name" content="Python 学习博客">
+<meta property="og:description" content="多进程消息队列">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-18T14:12:10.126Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="queue">
+<meta name="twitter:description" content="多进程消息队列">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://szone2.github.io/2017-12-15-queue.html"/>
+
+
+
+
+
+  <title>queue | Python 学习博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Python 学习博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://szone2.github.io/2017-12-15-queue.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Python 学习博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">queue</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-15T21:52:41+08:00">
+                2017-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="多进程消息队列"><a href="#多进程消息队列" class="headerlink" title="多进程消息队列"></a>多进程消息队列</h1><a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">from multiprocessing import Queue</div><div class="line"></div><div class="line">def write(q):</div><div class="line">    for i in [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;]:</div><div class="line">        q.put(i)</div><div class="line">        print(&quot;put &#123;0&#125; to queue&quot;.format(i))</div><div class="line"></div><div class="line">def read(q):</div><div class="line">    while 1:</div><div class="line">        result = q.get()</div><div class="line">        print(&quot;get &#123;0&#125; from queue&quot;.format(result))</div><div class="line"></div><div class="line">def main():</div><div class="line">    q = Queue()</div><div class="line">    pw = Process(target=write, args=(q,))</div><div class="line">    pr = Process(target=read, args=(q,))</div><div class="line">    pw.start()</div><div class="line">    pr.start()</div><div class="line">    #让写进程执行完</div><div class="line">    pw.join()</div><div class="line">    pr.terminate()</div><div class="line">    </div><div class="line">if __name__ == &quot;__main__&quot;:</div><div class="line">    main()</div></pre></td></tr></table></figure>
+<h1 id="消息队列pipe"><a href="#消息队列pipe" class="headerlink" title="消息队列pipe"></a>消息队列pipe</h1><p>通过Mutiprocess里面的pipe来实现消息队列：</p>
+<p>1.pipe方法返回(conn1,conn2)代表一个管道的两个端，pipe方法有duplex参数，如果duplex参数为True（默认值），那么这个管道是全双工模式，也就是说conn1和conn2均可收发，duplex为False，conn1只负责接收消息，conn2只负责发送消息。</p>
+<p>2.send和recv方法分别是发送和接受消息的方法，close方法表示关闭管道，当消息接受结束以后，关闭管道</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">import time</div><div class="line">from multiprocessing import Queue</div><div class="line"></div><div class="line">def proc1(pipe):</div><div class="line">    for i in xrange(1, 10):</div><div class="line">        pipe.send(i)</div><div class="line">        print(&quot;send &#123;0&#125; to pipe&quot;.format(i))</div><div class="line"></div><div class="line">def proc2(pipe):</div><div class="line">    n = 9</div><div class="line">    while n&gt;0:</div><div class="line">        result = pipe.recv()</div><div class="line">        print(&quot;recv &#123;0&#125; from pipe&quot;.format(result))</div><div class="line"></div><div class="line">def main():</div><div class="line">    pipe = Pipe(duplex=False)</div><div class="line">    print(type(pipe))</div><div class="line">    p1 = Process(target=proc1,args=(pipe[1],))</div><div class="line">    p2 = Process(targe=proc2, )</div><div class="line">    </div><div class="line">if __name__ == &quot;__main__&quot;:</div><div class="line">    main()</div></pre></td></tr></table></figure>
+<h1 id="queue模块"><a href="#queue模块" class="headerlink" title="queue模块"></a>queue模块</h1><p>python提供了queue模块来专门实现消息队列</p>
+<p>Queue.qsize():返回消息队列的当前空间。返回的值不一定可靠</p>
+<p>Queue.empty():判断消息队列是否为空，返回True或False。同样不可靠。</p>
+<p>Queue.full()类似上面，判断消息队列是否满</p>
+<p>Queue.pull(item, block=True, timeout=None):往消息队列中存放消息。block可以控制是否阻塞，timeout指定阻塞时候的等待时间。如果不阻塞或者超时，会引起一个full expeption</p>
+<p>Queue.put_nowait(item):相当于put(item, False)</p>
+<p>Queue.get(block=True, timeout=None):获取一个消息，其他同put</p>
+<p>Queue.task_done(): 接受消息的线程通过调用这个函数来说明消息对应的任务已完成</p>
+<p>Queue.join():实际上意味着等到队列为空，再执行别的操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">from threading import Thread</div><div class="line"></div><div class="line"># 写一个消费者和生产者，为了练习多线程，我们用多线程的方式来实现，并通过类的重新的方法来实现</div><div class="line"></div><div class="line"># 类首字母大写,继承Thread类</div><div class="line">class Proceduer(Thread):</div><div class="line">    def __init__(self):</div><div class="line">        super(Proceduer, self).__init__()</div><div class="line">        self.queue = queue</div><div class="line">    </div><div class="line">    def run(self):</div><div class="line">        try:</div><div class="line">            for i in xrange(1, 10):</div><div class="line">                print(&quot;put data is : &#123;0&#125; to queue&quot;.format(i))</div><div class="line">                self.queue.put(i)</div><div class="line">        except Exception as e:</div><div class="line">            print(&quot;put data error!&quot;)</div><div class="line">    </div><div class="line">class Consumer_odd(Thread):</div><div class="line">    def __init__(self, queue):</div><div class="line">        super(Consumer_odd, self).__init__()</div><div class="line">        self.queue = queue</div><div class="line">    def run(self):</div><div class="line">        try:</div><div class="line">            如果值不为空</div><div class="line">            while not self.queue.empty()：</div><div class="line">                number = self.queue.get(block=True, timeout=3)</div><div class="line">                if number%2 != 0:</div><div class="line">                    print(&quot;get &#123;0&#125; from queue ODD&quot;.format(number))</div><div class="line">                else:</div><div class="line">                    # 不是基数给放回去</div><div class="line">                    self.queue.put(number)</div><div class="line">                time.sleep(1)</div><div class="line">        except Exception as e:</div><div class="line">            raise e</div><div class="line"></div><div class="line">class Consumer_evenThread):</div><div class="line">    def __init__(self, queue):</div><div class="line">        super(Consumer_even, self).__init__()</div><div class="line">        self.queue = queue</div><div class="line">    def run(self):</div><div class="line">        try:</div><div class="line">            如果值不为空</div><div class="line">            while not self.queue.empty()：</div><div class="line">                number = self.queue.get(block=True, timeout=3)</div><div class="line">                if number%2 == 0:</div><div class="line">                    print(&quot;get &#123;0&#125; from queue even, thread name is：&#123;1&#125;&quot;.format(number，self.getname()))</div><div class="line">                else:</div><div class="line">                    # 不是基数给放回去</div><div class="line">                    self.queue.put(number)</div><div class="line">                time.sleep(1)</div><div class="line">        except Exception as e:</div><div class="line">            raise e</div><div class="line"></div><div class="line">def main():</div><div class="line">    queue = Queue()</div><div class="line">    p = Proceduer(queue=queue)</div><div class="line">    p.start()</div><div class="line">    p.join()</div><div class="line">    time.sleep(1)</div><div class="line">    c1 = Consumer_odd(queue=queue)</div><div class="line">    c2 = Consumer_even(queue=queue)</div><div class="line">    c1.start()</div><div class="line">    c2.start()</div><div class="line">    c1.join()</div><div class="line">    c2.join()</div><div class="line">    print(&quot;All threads terminate ! &quot;)</div><div class="line"></div><div class="line">if __name__ == &quot;__main__&quot;:</div><div class="line">    main()</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2017-12-15-queue.html">queue</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 shen 的个人博客">shen</a></p>
+  <p><span>发布时间:</span>2017年12月15日 - 21:12</p>
+  <p><span>最后更新:</span>2017年12月18日 - 22:12</p>
+  <p><span>原始链接:</span><a href="/2017-12-15-queue.html" title="queue">https://szone2.github.io/2017-12-15-queue.html</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://szone2.github.io/2017-12-15-queue.html"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+	clipboard.on('success', $(function(){
+	  $(".fa-clipboard").click(function(){
+		swal({   
+		  title: "",   
+		  text: '复制成功',   
+		  html: false,
+		  timer: 500,   
+		  showConfirmButton: false
+	    });
+	  });
+    }));  
+</script>
+
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017-12-14-thread.html" rel="next" title="线程">
+                <i class="fa fa-chevron-left"></i> 线程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017-12-19-celery.html" rel="prev" title="celery">
+                celery <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">shen</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#多进程消息队列"><span class="nav-number">1.</span> <span class="nav-text">多进程消息队列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#消息队列pipe"><span class="nav-number">2.</span> <span class="nav-text">消息队列pipe</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#queue模块"><span class="nav-number">3.</span> <span class="nav-text">queue模块</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shen</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

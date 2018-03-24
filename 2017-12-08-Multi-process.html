@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="多进程多线程概念进程是程序在计算机上的一次执行活动。当你运行一个程序，你就启动了一个进程。显然，程序是死的（静态的），进程是活的（动态的）。进程可以分为系统进程和用户进程。凡是用于完成操作系统的各种功能的进程就是系统进程，它们就是处于运行状态下的操作系统本身。所有由你启动的进程都是用户进程。进程是操作系统进行资源分配的单位。">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多进程">
+<meta property="og:url" content="https://szone2.github.io/2017-12-08-Multi-process.html">
+<meta property="og:site_name" content="Python 学习博客">
+<meta property="og:description" content="多进程多线程概念进程是程序在计算机上的一次执行活动。当你运行一个程序，你就启动了一个进程。显然，程序是死的（静态的），进程是活的（动态的）。进程可以分为系统进程和用户进程。凡是用于完成操作系统的各种功能的进程就是系统进程，它们就是处于运行状态下的操作系统本身。所有由你启动的进程都是用户进程。进程是操作系统进行资源分配的单位。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-12T14:54:02.164Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="多进程">
+<meta name="twitter:description" content="多进程多线程概念进程是程序在计算机上的一次执行活动。当你运行一个程序，你就启动了一个进程。显然，程序是死的（静态的），进程是活的（动态的）。进程可以分为系统进程和用户进程。凡是用于完成操作系统的各种功能的进程就是系统进程，它们就是处于运行状态下的操作系统本身。所有由你启动的进程都是用户进程。进程是操作系统进行资源分配的单位。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://szone2.github.io/2017-12-08-Multi-process.html"/>
+
+
+
+
+
+  <title>多进程 | Python 学习博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Python 学习博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://szone2.github.io/2017-12-08-Multi-process.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Python 学习博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">多进程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-08T23:26:44+08:00">
+                2017-12-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="多进程多线程概念"><a href="#多进程多线程概念" class="headerlink" title="多进程多线程概念"></a>多进程多线程概念</h1><p>进程是程序在计算机上的一次执行活动。当你运行一个程序，你就启动了一个进程。显然，程序是死的（静态的），进程是活的（动态的）。进程可以分为系统进程和用户进程。凡是用于完成操作系统的各种功能的进程就是系统进程，它们就是处于运行状态下的操作系统本身。所有由你启动的进程都是用户进程。进程是操作系统进行资源分配的单位。</p>
+<a id="more"></a>
+<p>它的思想简单介绍如下：在操作系统的管理下，所有正在运行的进程轮流使用CPU，每个进程允许占用CPU的时间非常短（比如10毫秒），这样用户根本感觉不出来CPU是在轮流为多个进程服务，就好像所有的进程都在不间断地运行一样，但实际上在任何一个时间内有且仅有一个进程占有CPU。</p>
+<p>多进程和多线程的区别：</p>
+<p>多线程使用的是CPU的一个核，适合io密集型<br>多进程使用的是CPU的多个核，适合运算密集型</p>
+<p>组件：</p>
+<p>Python提供了非常好用的多进程包，multiprocessing,使用时，只需导入模块就可以了</p>
+<p>Multiprocessing 支持子进程，通信，共享数据，执行不同形式的同步，提供了Process，pipe，lock等组件</p>
+<h1 id="多进程"><a href="#多进程" class="headerlink" title="多进程"></a>多进程</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">import multiprocessing</div><div class="line"></div><div class="line"># multiprocessing.active_children() 列出存在的子进程</div><div class="line"># cpu_count() 统计cpu的个数</div><div class="line"></div><div class="line">p = multiprocessing.cpu_count()</div><div class="line">m = multiprocessiong.active_children()</div><div class="line"></div><div class="line">print(p)</div><div class="line">print(m)</div></pre></td></tr></table></figure>
+<p>process的常用方法</p>
+<p>is_alive() 判断进程是否存货</p>
+<p>run() 启动进程</p>
+<p>start() 启动进程，会自动调用run方法，这个常用</p>
+<p>join(timeout) 等待进程结束或者直到超时</p>
+<p>process 的常用属性</p>
+<p>name 进程名字</p>
+<p>pid 进程的pid</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">import multiprocessing</div><div class="line">import time</div><div class="line"></div><div class="line">def worker(interval):</div><div class="line">    time.sleep(interval)</div><div class="line">    print(&quot;hello world&quot;)</div><div class="line"></div><div class="line">if __name__ == &quot;__main__&quot;</div><div class="line">    p = multiprocessing.Process(target=worker, args(5, ))</div><div class="line">    #启动进程</div><div class="line">    p.start()</div><div class="line">    print(p.is_alive())</div><div class="line">    # 等待子进程执行完毕或者超时退出</div><div class="line">    p.join(timeout=3)</div><div class="line">    print(&quot;end main&quot;)</div><div class="line">    </div><div class="line">    print(p.name)</div><div class="line">    print(p.pid)</div></pre></td></tr></table></figure>
+<h1 id="多进程实例"><a href="#多进程实例" class="headerlink" title="多进程实例"></a>多进程实例</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">import multiprocessing</div><div class="line">import time</div><div class="line"></div><div class="line">def worker(name, interval):</div><div class="line">    print(&quot;worke &#123;0&#125; start&quot;.fomat(name))</div><div class="line">    time.sleep(interval)</div><div class="line">    print(&quot;worke &#123;0&#125; end&quot;.format(name))</div><div class="line"></div><div class="line">if __name__ == &quot;__main__&quot;:</div><div class="line">    print(&quot;main start&quot;)</div><div class="line">    print(&quot;this computer has &#123;0&#125;&quot;.format(multiprocessing.cpu_count()))</div><div class="line">    </div><div class="line">    p1 = multiprocessing.Process(target=worker, args(&quot;worker1&quot;, 2))</div><div class="line">    p2 = multiprocessing.Process(target=worker, args(&quot;worker2&quot;, 3))</div><div class="line">    p3 = multiprocessing.Process(target=worker, args(&quot;worker3&quot;, 4))</div><div class="line">    </div><div class="line">    p1.start()</div><div class="line">    p2.start()</div><div class="line">    p3.start()</div><div class="line">    </div><div class="line">    for p in multiprocessing.active_children():</div><div class="line">        print(&quot;the pid of &#123;0&#125; is &#123;1&#125;&quot;.format(p.name, p.pid))</div><div class="line">    </div><div class="line">    print(&quot;main end&quot;)</div></pre></td></tr></table></figure>
+<h1 id="多进程锁"><a href="#多进程锁" class="headerlink" title="多进程锁"></a>多进程锁</h1><p>Lock组件</p>
+<p>当我们用多进程来读写文件的时候，如果一个进程是写文件，一个进程是读文件，如果两个文件同时进行，肯定是不行的，必须是文件写结束后，才可以进行读操作。或者是多个进程在共享一些资源的时候，同时只能有一个进程进行访问，那就要有一个锁机制进行控制</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">import multiprocessing</div><div class="line">import time</div><div class="line"></div><div class="line">lock = multiprocessing.Lock()</div><div class="line"># lock.acquire 获得锁</div><div class="line"># lock.release 释放锁</div><div class="line"># with lock</div><div class="line"># 不加锁程序</div><div class="line"></div><div class="line">def add(nummer, value, lock):</div><div class="line">    with lock:</div><div class="line">        print(&quot;init add&#123;0&#125; number = &#123;1&#125;&quot;.format(number))</div><div class="line">        for i in xrange(1, 6):</div><div class="line">            number += value</div><div class="line">            print(&quot;add&#123;0&#125; number = &#123;1&#125;&quot;.format(number))</div><div class="line"></div><div class="line">if __name__ == &quot;__main__&quot;:</div><div class="line">    lock = multiprocessing.Lock()</div><div class="line">    number = 0</div><div class="line">    # 创建一个多线程</div><div class="line">    p1 = multiprocessing.Process(target=add, args(number, 1, lock))</div><div class="line">    p2 = multiprocessing.Process(target=add, args(number, 3, lock))</div><div class="line">    p1.start()</div><div class="line">    p2.start()</div><div class="line">    print(&quot;main end&quot;)</div></pre></td></tr></table></figure>
+<h1 id="多进程共享内存"><a href="#多进程共享内存" class="headerlink" title="多进程共享内存"></a>多进程共享内存</h1><p>共享内存</p>
+<p>python的multiprocessing模块也给我们提供了共享内存的操作</p>
+<p>一般的变量在进程之间是没法进行通讯的，multiprocessing给我们提供了Value和Array模块，他们可以在不通的进程中共同使用</p>
+<h1 id="多进程Manager"><a href="#多进程Manager" class="headerlink" title="多进程Manager"></a>多进程Manager</h1><p>python中提供了强大的Manage专门用来做数据共享，其支持的类型非常多，包括，Value，Array，list, dict queue,lock等</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">import multiprocessing</div><div class="line"></div><div class="line">def worker(d, l):</div><div class="line">    l += range(11, 16)</div><div class="line">    for i in xrange(1, 6):</div><div class="line">        key = &quot;key&#123;0&#125;&quot;.format(i)</div><div class="line">        val = &quot;val&#123;0&#125;&quot;.format(i)</div><div class="line">        d[key] = val</div><div class="line"></div><div class="line">if __name__ == &quot;__main__&quot;:</div><div class="line">    manager = multiprocessing.Manager()</div><div class="line">    d = manager.dict()</div><div class="line">    l = manager.list()</div><div class="line">    p = multiprocessing.Process(target=worker, args(d, 1)</div><div class="line">    p.start()</div><div class="line">    # 阻塞</div><div class="line">    p.join()</div><div class="line">    print(d)</div><div class="line">    print(i)</div><div class="line">    print(&quot;main end&quot;)</div></pre></td></tr></table></figure>
+<h1 id="进程池"><a href="#进程池" class="headerlink" title="进程池"></a>进程池</h1><p>pool 可以提供指定数量的进程，供用户调用，当有新的请求提交到pool中时，如果池还没有满，那么就会创建一个新的进程用来执行请求；但如果池中的进程数已经达到规定最大值，那么该请求就会等待，直到池中有进程结束，才会创建新的进程。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">import time</div><div class="line"></div><div class="line">def worker(msg):</div><div class="line">    print(&quot;start &#123;0&#125;&quot;.format(msg))</div><div class="line">    time.sleep(1)</div><div class="line">    print(&quot;end &#123;0&#125;&quot;.format(msg))</div><div class="line"></div><div class="line">if __name__==&quot;__main__&quot;:</div><div class="line">    print(&quot;main start&quot;)</div><div class="line">    pool = multiprocessing.Pool(processes=3)</div><div class="line">    for i in xrange(1, 10):</div><div class="line">        msg = &quot;hello &#123;0&#125;&quot;.format(i)</div><div class="line">        pool.apply_async(func=worker, args=(msg,))</div><div class="line">    pool.close()</div><div class="line">    pool.join() #在join之前一定要调用close，否则报错</div><div class="line">    print(&quot;main end&quot;)</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2017-12-08-Multi-process.html">多进程</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 shen 的个人博客">shen</a></p>
+  <p><span>发布时间:</span>2017年12月08日 - 23:12</p>
+  <p><span>最后更新:</span>2017年12月12日 - 22:12</p>
+  <p><span>原始链接:</span><a href="/2017-12-08-Multi-process.html" title="多进程">https://szone2.github.io/2017-12-08-Multi-process.html</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://szone2.github.io/2017-12-08-Multi-process.html"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+	clipboard.on('success', $(function(){
+	  $(".fa-clipboard").click(function(){
+		swal({   
+		  title: "",   
+		  text: '复制成功',   
+		  html: false,
+		  timer: 500,   
+		  showConfirmButton: false
+	    });
+	  });
+    }));  
+</script>
+
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017-12-01-python基础进阶.html" rel="next" title="python基础进阶">
+                <i class="fa fa-chevron-left"></i> python基础进阶
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017-12-14-thread.html" rel="prev" title="线程">
+                线程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">shen</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#多进程多线程概念"><span class="nav-number">1.</span> <span class="nav-text">多进程多线程概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多进程"><span class="nav-number">2.</span> <span class="nav-text">多进程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多进程实例"><span class="nav-number">3.</span> <span class="nav-text">多进程实例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多进程锁"><span class="nav-number">4.</span> <span class="nav-text">多进程锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多进程共享内存"><span class="nav-number">5.</span> <span class="nav-text">多进程共享内存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多进程Manager"><span class="nav-number">6.</span> <span class="nav-text">多进程Manager</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进程池"><span class="nav-number">7.</span> <span class="nav-text">进程池</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shen</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

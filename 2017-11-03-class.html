@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="类一般形式创建类我们一般使用class关键字,class后面跟类名字 使用debug模式运行下面的例子">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="class">
+<meta property="og:url" content="https://szone2.github.io/2017-11-03-class.html">
+<meta property="og:site_name" content="Python 学习博客">
+<meta property="og:description" content="类一般形式创建类我们一般使用class关键字,class后面跟类名字 使用debug模式运行下面的例子">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-06T15:34:47.173Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="class">
+<meta name="twitter:description" content="类一般形式创建类我们一般使用class关键字,class后面跟类名字 使用debug模式运行下面的例子">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://szone2.github.io/2017-11-03-class.html"/>
+
+
+
+
+
+  <title>class | Python 学习博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Python 学习博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://szone2.github.io/2017-11-03-class.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Python 学习博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">class</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-03T23:55:28+08:00">
+                2017-11-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="类一般形式"><a href="#类一般形式" class="headerlink" title="类一般形式"></a>类一般形式</h1><p>创建类我们一般使用class关键字,class后面跟类名字</p>
+<p>使用debug模式运行下面的例子</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"># object是一个超级类，所有类都默认继承它，即在它基础上改写</div><div class="line"># This class is abort ren class</div><div class="line">class ren(object):</div><div class="line">    </div><div class="line">    name = &quot;alice&quot;</div><div class="line">    sex = &quot;F&quot;</div><div class="line">    </div><div class="line">    def hello(self):</div><div class="line">        print(&apos;hello world.&apos;)</div><div class="line">    </div><div class="line"></div><div class="line">a = ren()</div><div class="line">print(type(a))</div><div class="line">print(a.name)</div><div class="line">print(a.sex)</div><div class="line">a.hello()</div><div class="line">a.name = &apos;tom&apos;</div><div class="line">print(a.name)</div></pre></td></tr></table></figure>
+<h1 id="类的构造器"><a href="#类的构造器" class="headerlink" title="类的构造器"></a>类的构造器</h1><p>__init__构造函数，在生成对象时调用。由于类可以起到模板的作用，因此，可以在创建实例的时候，把一些我们认为必须绑定的属性强制填写进去，通过定义一个特殊的<strong>init</strong>方法，在创建实例的时候，就把name,sex等属性绑上去</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">class ren():</div><div class="line">    def __init__(self, name, sex):</div><div class="line">        self.name = name</div><div class="line">        self.sex = sex</div><div class="line">    </div><div class="line">    def hello(self):</div><div class="line">        print(&apos;hello &#123;0&#125;&apos;.format(self.name))</div><div class="line"></div><div class="line"></div><div class="line">test = ren(&apos;alice&apos;，&apos;M&apos;)</div><div class="line"></div><div class="line">test.hello()</div><div class="line"></div><div class="line"># 在传参数的时候，必须是传递两个参数，name和sex，不然报错</div><div class="line"># self参数不用传递，python自动会把ren实例化的test传递给第一个参数，即self</div></pre></td></tr></table></figure>
+<p>注意到__init__方法的第一个参数永远是self，表示创建的实例本身，因此，在__init__方法内部，就可以把各种属性绑定到self，因为self就指向创建的实例本身。</p>
+<p>有了__init__方法，在创建实例的时候，就不能传入空的参数了，必须传入与__init__方法匹配的参数，但self不需要传入，python解析器自己会把实例变量传进去</p>
+<h1 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h1><blockquote>
+<p>python的类支持多继承，而java没有多继承，但是可以有多接口的实现。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"># python的多继承例子：</div><div class="line"></div><div class="line">class A(object):</div><div class="line">    pass</div><div class="line"></div><div class="line">class B(object):</div><div class="line">    pass</div><div class="line">    </div><div class="line"># C类继承A和B类</div><div class="line">class C(A, B):</div><div class="line">    pass</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">class parent():</div><div class="line">    name = &apos;parent&apos;</div><div class="line">    age = &apos;100&apos;</div><div class="line">    </div><div class="line">    def __init__(self):</div><div class="line">        print(&apos;My name is &#123;0&#125;&apos;.format(self.name))</div><div class="line">    </div><div class="line">    def get_name(self):</div><div class="line">        return self.name</div><div class="line">    </div><div class="line">    def get_age(self):</div><div class="line">        return self.age</div><div class="line"></div><div class="line"></div><div class="line">class child(parent):</div><div class="line">    name = &apos;child&apos;</div><div class="line">#   age = &apos;20&apos;</div><div class="line"></div><div class="line">    def __init__(self):</div><div class="line">        print(&apos;My name is &#123;0&#125;&apos;.format(self.name))</div><div class="line">    </div><div class="line">    def hello(self):</div><div class="line">        print(&apos;hello, world&apos;)</div><div class="line"></div><div class="line"></div><div class="line">a = child()</div><div class="line">a.hello()</div><div class="line">print(a.get_name())</div><div class="line"># 先在子类中找，找不到再去父类找</div><div class="line">print(a.get_age())</div></pre></td></tr></table></figure>
+<h1 id="类的重写"><a href="#类的重写" class="headerlink" title="类的重写"></a>类的重写</h1><p>super关键字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">class parent(object):</div><div class="line">    parent_name = &apos;parent&apos;</div><div class="line">    age = &apos;100&apos;</div><div class="line">    sex = &apos;M&apos;</div><div class="line">    address = &apos;abcdefg&apos;</div><div class="line">    </div><div class="line">    def __init__(self, address, age):</div><div class="line">        self.address = address</div><div class="line">        self.age = age</div><div class="line">    </div><div class="line">    def get_name(self):</div><div class="line">        print(&apos;** parent name **&apos;)</div><div class="line">    </div><div class="line">    def get_age(self):</div><div class="line">        return self.age</div><div class="line"></div><div class="line"></div><div class="line">class child(parent):</div><div class="line">    child_name = &apos;child&apos;</div><div class="line">    # age = &apos;20&apos;</div><div class="line"></div><div class="line">    def __init__(self, address, age):</div><div class="line">    # 子类在执行时执行父类的\_\_init\_\_</div><div class="line">    #   parent.__init__(self, address, age)</div><div class="line">    super(child, self).__init__.(self, address, age)</div><div class="line">    </div><div class="line">    def hello(self):</div><div class="line">        print(&apos;hello, world&apos;)</div><div class="line">    </div><div class="line"># 继承父类get_name的方法，再增加父类中的方法（新增）,使用super关键字</div><div class="line">    </div><div class="line">    def get_name(self):</div><div class="line">        super(child, self).get_name()</div><div class="line">        print(&apos;today is nice day&apos;)</div><div class="line"></div><div class="line">print(a.get_name())</div><div class="line">print(a.address)</div><div class="line">print(a.sex)</div></pre></td></tr></table></figure>
+<h1 id="类的私有变量"><a href="#类的私有变量" class="headerlink" title="类的私有变量"></a>类的私有变量</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">class A(object):</div><div class="line">    _name = &apos;alice&apos;</div><div class="line">    __sex = &apos;F&apos;</div><div class="line">    </div><div class="line">    def hello(self):</div><div class="line">        print(self._name)</div><div class="line">        print(self.__sex)</div><div class="line">    def get_sex(self):</div><div class="line">        return self.__sex</div><div class="line"></div><div class="line">a = A()</div><div class="line">print(a._name)</div><div class="line">a.hello()</div><div class="line">print(a.get_sex())</div><div class="line">print(dir(a))</div><div class="line"></div><div class="line">print(a.__doc__)</div></pre></td></tr></table></figure>
+<p>在Python中可以通过在属性变量名前加上双下划线定义属性为私有属性</p>
+<p>特殊变量命名</p>
+<p>_xx 以单下划线开头的表示的是protected类型的变量。即保护类型只能允许其本身与子类进行访问。若内部变量标示，如： 当使用“from M import”时，不会将以一个下划线开头的对象引入 。</p>
+<p>__xx 双下划线的表示的是私有类型的变量。只能允许这个类本身进行访问了，连子类也不可以用于命名一个类属性（类变量），调用时名字被改变（在类FooBar内部，__boo变成_FooBar__boo,如self._FooBar__boo）</p>
+<p>__xx__定义的是特列方法。用户控制的命名空间内的变量或是属性，如init , __import__或是file 。只有当文档有说明时使用，不要自己定义这类变量。 （就是说这些是python内部定义的变量名）</p>
+<p>在这里强调说一下私有变量,python默认的成员函数和成员变量都是公开的,没有像其他类似语言的public,private等关键字修饰.但是可以在变量前面加上两个下划线”_“,这样的话函数或变量就变成私有的.这是python的私有变量轧压(这个翻译好拗口),英文是(private name mangling.) **情况就是当变量被标记为私有后,在变量的前端插入类名,再类名前添加一个下划线”_“,即形成了_ClassName__变量名.**</p>
+<p>Python内置类属性<br>__dict__ : 类的属性（包含一个字典，由类的数据属性组成）<br>__doc__ :类的文档字符串<br>__module__: 类定义所在的模块（类的全名是’__main__.className’，如果类位于一个导入模块mymod中，那么className.__module__ 等于 mymod）<br>__bases__ : 类的所有父类构成元素（包含了一个由所有父类组成的元组）</p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2017-11-03-class.html">class</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 shen 的个人博客">shen</a></p>
+  <p><span>发布时间:</span>2017年11月03日 - 23:11</p>
+  <p><span>最后更新:</span>2017年11月06日 - 23:11</p>
+  <p><span>原始链接:</span><a href="/2017-11-03-class.html" title="class">https://szone2.github.io/2017-11-03-class.html</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://szone2.github.io/2017-11-03-class.html"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+	clipboard.on('success', $(function(){
+	  $(".fa-clipboard").click(function(){
+		swal({   
+		  title: "",   
+		  text: '复制成功',   
+		  html: false,
+		  timer: 500,   
+		  showConfirmButton: false
+	    });
+	  });
+    }));  
+</script>
+
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017-11-01-function.html" rel="next" title="函数">
+                <i class="fa fa-chevron-left"></i> 函数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017-11-06-abnormal.html" rel="prev" title="abnormal">
+                abnormal <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">shen</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#类一般形式"><span class="nav-number">1.</span> <span class="nav-text">类一般形式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类的构造器"><span class="nav-number">2.</span> <span class="nav-text">类的构造器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类的继承"><span class="nav-number">3.</span> <span class="nav-text">类的继承</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类的重写"><span class="nav-number">4.</span> <span class="nav-text">类的重写</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类的私有变量"><span class="nav-number">5.</span> <span class="nav-text">类的私有变量</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shen</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

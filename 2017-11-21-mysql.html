@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="使用Python操作MysqlWindows下安装MySQL-python 1.2.5">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql">
+<meta property="og:url" content="https://szone2.github.io/2017-11-21-mysql.html">
+<meta property="og:site_name" content="Python 学习博客">
+<meta property="og:description" content="使用Python操作MysqlWindows下安装MySQL-python 1.2.5">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-23T13:18:28.387Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql">
+<meta name="twitter:description" content="使用Python操作MysqlWindows下安装MySQL-python 1.2.5">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://szone2.github.io/2017-11-21-mysql.html"/>
+
+
+
+
+
+  <title>mysql | Python 学习博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Python 学习博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://szone2.github.io/2017-11-21-mysql.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Python 学习博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">mysql</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-21T00:59:16+08:00">
+                2017-11-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="使用Python操作Mysql"><a href="#使用Python操作Mysql" class="headerlink" title="使用Python操作Mysql"></a>使用Python操作Mysql</h1><h2 id="Windows下安装MySQL-python-1-2-5"><a href="#Windows下安装MySQL-python-1-2-5" class="headerlink" title="Windows下安装MySQL-python 1.2.5"></a>Windows下安装MySQL-python 1.2.5</h2><a id="more"></a>
+<p>下载mysql-python:</p>
+<p>源码包:<a href="https://pypi.python.org/pypi/MySQL-python/1.2.5" target="_blank" rel="external">https://pypi.python.org/pypi/MySQL-python/1.2.5</a> </p>
+<p>需要安装mysql connector 根据python的版本下载32位或64位版本. 默认安装即可.下载地址：<a href="http://dev.mysql.com/downloads/connector/c/6.0.html#downloads" target="_blank" rel="external">http://dev.mysql.com/downloads/connector/c/6.0.html#downloads</a> </p>
+<blockquote>
+<p>注意：site.cfg 中connector 的值是否是你安装mysql connector的目录</p>
+</blockquote>
+<p>还需要安装一个VCforpython2.7 去微软官网下载即可:<a href="https://www.microsoft.com/en-us/download/confirmation.aspx?id=44266" target="_blank" rel="external">https://www.microsoft.com/en-us/download/confirmation.aspx?id=44266</a></p>
+<p>python setup.py install</p>
+<p>安装检验, import MySQLdb 无返回错误信息表示安装成功</p>
+<p>Python 2.7.13 (v2.7.13:a06454b1afa1, Dec 17 2016, 20:53:40) [MSC v.1500 64 bit (AMD64)] on win32<br>Type “help”, “copyright”, “credits” or “license” for more information.</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>import MySQLdb</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h2 id="安装mysql数据库"><a href="#安装mysql数据库" class="headerlink" title="安装mysql数据库"></a>安装mysql数据库</h2><p>略</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">create database python;</div><div class="line">use python;</div><div class="line">grant all privileges on python to &apos;python&apos;@&apos;%&apos; identified by &apos;123456&apos;;</div><div class="line">flush privileges;</div></pre></td></tr></table></figure>
+<h1 id="链接数据库"><a href="#链接数据库" class="headerlink" title="链接数据库"></a>链接数据库</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"># 比较常用的参数包括:</div><div class="line"># host:数据库主机名.默认是用本地主机</div><div class="line"># user:数据库登陆名.默认是当前用户</div><div class="line"># passwd:数据库登陆的秘密.默认为空</div><div class="line"># db:要使用的数据库名.没有默认值</div><div class="line"># port:MySQL服务使用的TCP端口.默认是3306，数字类型</div><div class="line"># charset:数据库编码</div><div class="line"># 更多关于参数的信息可以查这里 http://mysql-python.sourceforge.net/MySQLdb.html</div><div class="line"></div><div class="line">conn=MySQLdb.connect(host=&quot;192.168.1.100&quot;,user=&quot;python&quot;,passwd=&quot;123456&quot;,db=&quot;python&quot;,charset=&quot;utf8&quot;)</div><div class="line"></div><div class="line"></div><div class="line"># 有时候，为了我们代码的规范，我更加推荐把所有数据库的配置写在一个字典中，如下所示：</div><div class="line">def connect_mysql():</div><div class="line">    db_config = &#123;</div><div class="line">        &apos;host&apos;: &apos;192.168.1.100&apos;,</div><div class="line">        &apos;port&apos;: 3306,</div><div class="line">        &apos;user&apos;: &apos;python&apos;,</div><div class="line">        &apos;passwd&apos;: &apos;123456&apos;,</div><div class="line">        &apos;db&apos;: &apos;python&apos;,</div><div class="line">        &apos;charset&apos;: &apos;utf-8&apos;</div><div class="line">    &#125;</div><div class="line">    try:</div><div class="line">        cnx = MySQLdb.connect(**db_config)</div><div class="line">    except Exception as e:</div><div class="line">        raise e</div><div class="line">    return cnx</div><div class="line"></div><div class="line"># 调用时只需写</div><div class="line">connect_mysql()</div><div class="line"></div><div class="line"># 这样写的代码更加规范，即使以后数据库有协议，我们只需要改动db_config字典中的内容就可以了，后面的内容就不用更改了，这样可以增加代码的可移植性，你也可以把mysql的连接包装成一个函数，以后在连接mysql的时候，直接调用函数就可以了！</div></pre></td></tr></table></figure>
+<h1 id="mysql事务"><a href="#mysql事务" class="headerlink" title="mysql事务"></a>mysql事务</h1><p>MySQL 事务主要用于处理操作量大，复杂度高的数据。比如，你操作一个数据库，公司的一个员工离职了，你要在数据库中删除他的资料，也要删除该人员相关的，比如邮箱，个人资产等。这些数据库操作语言就构成了一个事务。</p>
+<p>在MySQL中只有使用了Innodb数据库引擎的数据库或表才支持事务，所以很多情况下我们都使用innodb引擎。</p>
+<p>事务处理可以用来维护数据库的完整性，保证成批的SQL语句要么全部执行，要么全部不执行。</p>
+<p>一般来说，事务是必须满足4个条件（ACID）： Atomicity（原子性）、Consistency（稳定性）、Isolation（隔离性）、Durability（可靠性）</p>
+<p>1、事务的原子性：一组事务，要么成功；要么撤回。</p>
+<p>2、稳定性 ： 有非法数据（外键约束之类），事务撤回。</p>
+<p>3、隔离性：事务独立运行。一个事务处理后的结果，影响了其他事务，那么其他事务会撤回。事务的100%隔离，需要牺牲速度。</p>
+<p>4、可靠性：软、硬件崩溃后，InnoDB数据表驱动会利用日志文件重构修改。可靠性和高速度不可兼得， innodb_flush_log_at_trx_commit选项 决定什么时候吧事务保存到日志里。</p>
+<p>而mysql在默认的情况下，他是把每个select，insert，update，delete等做为一个事务的，登录mysql服务器，进入mysql，执行以下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">mysql&gt; show variables like &apos;auto%&apos;;</div><div class="line"></div><div class="line">+--------------------------+-------+</div><div class="line">| Variable_name            | Value |</div><div class="line">+--------------------------+-------+</div><div class="line">| auto_increment_increment | 1     |</div><div class="line">| auto_increment_offset    | 1     |</div><div class="line">| autocommit               | ON    |</div><div class="line">| automatic_sp_privileges  | ON    |</div><div class="line">+--------------------------+-------+</div><div class="line">4 rows in set (0.00 sec)</div></pre></td></tr></table></figure>
+<p>如上所示： 有一个参数autocommit就是自动提交的意思，每执行一个msyql的select，insert，update等操作，就会进行自动提交。</p>
+<p>如果把改选项关闭，我们就可以每次执行完一次代码就需要进行手动提交，connect对象给我们提供了两种办法来操作提交数据。</p>
+<p>d)    mysql事务的方法</p>
+<p>commit():提交当前事务，如果是支持事务的数据库执行增删改后没有commit则数据库默认回滚</p>
+<p>rollback():取消当前事务</p>
+<h1 id="mysql操作数据"><a href="#mysql操作数据" class="headerlink" title="mysql操作数据"></a>mysql操作数据</h1><p>接下来，我们通过python代码增加一条数据到数据库中，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">import MySQLdb</div><div class="line"></div><div class="line"></div><div class="line">def connect_mysql():</div><div class="line">    db_config = &#123;</div><div class="line">        &apos;host&apos;: &apos;192.168.1.100&apos;,</div><div class="line">        &apos;port&apos;: 3306,</div><div class="line">        &apos;user&apos;: &apos;python&apos;,</div><div class="line">        &apos;passwd&apos;: &apos;123456&apos;,</div><div class="line">        &apos;db&apos;: &apos;python&apos;,</div><div class="line">        &apos;charset&apos;: &apos;utf-8&apos;</div><div class="line">    &#125;</div><div class="line">    try:</div><div class="line">        cnx = MySQLdb.connect(**db_config)</div><div class="line">    except Exception as e:</div><div class="line">        raise e</div><div class="line">    return cnx</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    cnx = connect_mysql()</div><div class="line">    cus = cnx.cursor()</div><div class="line">    sql  = &apos;&apos;&apos; create table test(id int not null);insert into test(id) values (100);&apos;&apos;&apos;</div><div class="line">    try:</div><div class="line">        cus.execute(sql)</div><div class="line">        cus.close()</div><div class="line">        cnx.commit()</div><div class="line">    except Exception as e:</div><div class="line">        cnx.rollback()</div><div class="line">        print(&apos;Error&apos;)</div><div class="line">        # raise e</div><div class="line">    finally:</div><div class="line">        cnx.close()</div></pre></td></tr></table></figure>
+<h1 id="游标"><a href="#游标" class="headerlink" title="游标"></a>游标</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"># excute(sql[, args]):执行一个数据库查询或命令</div><div class="line">解释：</div><div class="line">先通过MySQLdb.connect(**db_config)建立mysql连接对象</div><div class="line">在通过 = cnx.cursor()创建游标</div><div class="line">fetchone():在最终搜索的数据中去一条数据</div><div class="line">fetchmany(1)在接下来的数据中在去1行的数据，这个数字可以自定义，定义多少就是在结果集中取多少条数据。</div><div class="line">fetchall()是在所有的结果中搞出来所有的数据。</div><div class="line">对于excute()和excutemany()的方法，我们会在以一节详细分析他们的区别。</div><div class="line"></div><div class="line">import MySQLdb</div><div class="line"></div><div class="line"></div><div class="line">def connect_mysql():</div><div class="line">    db_config = &#123;</div><div class="line">        &apos;host&apos;: &apos;192.168.1.100&apos;,</div><div class="line">        &apos;port&apos;: 3306,</div><div class="line">        &apos;user&apos;: &apos;python&apos;,</div><div class="line">        &apos;passwd&apos;: &apos;123456&apos;,</div><div class="line">        &apos;db&apos;: &apos;python&apos;,</div><div class="line">        &apos;charset&apos;: &apos;utf8&apos;</div><div class="line">    &#125;</div><div class="line">    try:</div><div class="line">        cnx = MySQLdb.connect(**db_config)</div><div class="line">    except Exception as e:</div><div class="line">        raise e</div><div class="line">    return cnx</div><div class="line">    </div><div class="line">if __name__==&quot;__main__&quot;:</div><div class="line">    sql = &quot;select * from tmp.&quot;</div><div class="line">    cnx = connect_mysql()</div><div class="line">    # 创建游标游标对象cursor()</div><div class="line">    cus = cnx.cursor()</div><div class="line">    </div><div class="line">    try:</div><div class="line">    # 执行一个数据库查询或命令</div><div class="line">        cus.execute(sql)</div><div class="line">        </div><div class="line">        # 得到结果集的下一行</div><div class="line">        result1 = cus.fetchone()</div><div class="line">        print(result1)</div><div class="line">        </div><div class="line">        # 得到结果集的下几行</div><div class="line">        result2 = cus.fetchmany(3)</div><div class="line">        print(result2)</div><div class="line">        </div><div class="line">        # 得到结果集中剩下的所有行</div><div class="line">        result3 = cus.fetchall()</div><div class="line">        print(result3)</div><div class="line">        </div><div class="line">        cus.close()</div><div class="line">    except Exception as e:</div><div class="line">        cnx.rollback()</div><div class="line">    finally:</div><div class="line">        cnx.close()</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"># executemany (sql, args):执行多个数据库查询或命令</div><div class="line"></div><div class="line">import MySQLdb</div><div class="line"></div><div class="line">def connect_mysql():</div><div class="line">    db_config = &#123;</div><div class="line">        &apos;host&apos;: &apos;192.168.1.100&apos;,</div><div class="line">        &apos;port&apos;: 3306,</div><div class="line">        &apos;user&apos;: &apos;python&apos;,</div><div class="line">        &apos;passwd&apos;: &apos;123456&apos;,</div><div class="line">        &apos;db&apos;: &apos;python&apos;,</div><div class="line">        &apos;charset&apos;: &apos;utf8&apos;</div><div class="line">    &#125;</div><div class="line">    try:</div><div class="line">        cnx = MySQLdb.connect(**db_config)</div><div class="line">    except Exception as e:</div><div class="line">        raise e</div><div class="line">    return cnx</div><div class="line"></div><div class="line">if __name__ == &quot;__main__&quot;:</div><div class="line">    sql = &quot;select * from tmp;&quot;</div><div class="line">    sql1 = &quot;insert into tmp(id) value (%s);&quot;</div><div class="line">    param = []</div><div class="line">    for i in xrange(100, 130):</div><div class="line">        param.append([str(i)])</div><div class="line">    print(param)</div><div class="line">    cnx = connect_mysql()</div><div class="line">    cus = cnx.cursor()</div><div class="line">    print(dir(cus))</div><div class="line">    try:</div><div class="line">        cus.execute(sql)</div><div class="line">        cus.executemany(sql1, param)</div><div class="line">        # help(cus.executemany)</div><div class="line">        result1 = cus.fetchone()</div><div class="line">        print(&quot;result1&quot;)</div><div class="line">        print(result1)</div><div class="line"></div><div class="line">        result2 = cus.fetchmany(3)</div><div class="line">        print(&quot;result2&quot;)</div><div class="line">        print(result2)</div><div class="line"></div><div class="line">        result3 = cus.fetchall()</div><div class="line">        print(&quot;result3&quot;)</div><div class="line">        print(result3)</div><div class="line">        cus.close()</div><div class="line">        cnx.commit()</div><div class="line"></div><div class="line">    except Exception as e:</div><div class="line">        cnx.rollback()</div><div class="line">        raise e</div><div class="line">    finally:</div><div class="line">        cnx.close()</div></pre></td></tr></table></figure>
+<h1 id="数据库连接池"><a href="#数据库连接池" class="headerlink" title="数据库连接池"></a>数据库连接池</h1><blockquote>
+<p>python编程中可以使用MySQLdb进行数据库的连接及诸如查询/插入/更新等操作，但是每次连接mysql数据库请求时，都是独立的去请求访问，相当浪费资源，而且访问数量达到一定数量时，对mysql的性能会产生较大的影响。因此，实际使用中，通常会使用数据库的连接池技术，来访问数据库达到资源复用的目的。</p>
+</blockquote>
+<p>python的数据库连接池包 DBUtils：</p>
+<p>DBUtils是一套Python数据库连接池包，并允许对非线程安全的数据库接口进行线程安全包装。DBUtils来自Webware for Python。</p>
+<p>DBUtils提供两种外部接口：</p>
+<ul>
+<li>PersistentDB ：提供线程专用的数据库连接，并自动管理连接。</li>
+<li></li>
+<li>PooledDB ：提供线程间可共享的数据库连接，并自动管理连接。</li>
+<li>下载地址：<a href="https://pypi.python.org/pypi/DBUtils/" target="_blank" rel="external">https://pypi.python.org/pypi/DBUtils/</a>  </li>
+</ul>
+<p>下载解压后，使用python setup.py install 命令进行安装</p>
+<p>或者使用</p>
+<p>Pip install DBUtils</p>
+<p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">import MySQLdb</div><div class="line">from DBUtils.PooledDB import PooledDB</div><div class="line">db_config = &#123;</div><div class="line">        &quot;host&quot;: &quot;192.168.1.100&quot;,</div><div class="line">        &quot;port&quot;: 3306,</div><div class="line">        &quot;user&quot;: &quot;python&quot;,</div><div class="line">        &quot;passwd&quot;: &quot;123456&quot;,</div><div class="line">        &quot;db&quot;: &quot;python&quot;,</div><div class="line">        &quot;charset&quot;: &quot;utf8&quot;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line"># 5为连接池里的最少连接数</div><div class="line">pool = PooledDB(MySQLdb, 5, **db_config)</div><div class="line"></div><div class="line"> # 以后每次需要数据库连接就是用connection（）函数获取连接就好了</div><div class="line">conn = pool.connection() </div><div class="line">cur = conn.cursor()</div><div class="line">SQL = &quot;select * from tmp;&quot;</div><div class="line">r = cur.execute(SQL)</div><div class="line">r = cur.fetchall()</div><div class="line">print(r)</div><div class="line">cur.close()</div><div class="line">conn.close()</div><div class="line"></div><div class="line">PooledDB的参数：</div><div class="line">1. mincached，最少的空闲连接数，如果空闲连接数小于这个数，pool会创建一个新的连接</div><div class="line">2. maxcached，最大的空闲连接数，如果空闲连接数大于这个数，pool会关闭空闲连接</div><div class="line">3. maxconnections，最大的连接数，</div><div class="line">4. blocking，当连接数达到最大的连接数时，在请求连接的时候，如果这个值是True，请求连接的程序会一直等待，直到当前连接数小于最大连接数，如果这个值是False，会报错，</div><div class="line">5. maxshared 当连接数达到这个数，新请求的连接会分享已经分配出去的连接</div><div class="line"></div><div class="line">在uwsgi中，每个http请求都会分发给一个进程，连接池中配置的连接数都是一个进程为单位的（即上面的最大连接数，都是在一个进程中的连接数），而如果业务中，一个http请求中需要的sql连接数不是很多的话（其实大多数都只需要创建一个连接），配置的连接数配置都不需要太大。</div><div class="line">连接池对性能的提升表现在：</div><div class="line">1.在程序创建连接的时候，可以从一个空闲的连接中获取，不需要重新初始化连接，提升获取连接的速度</div><div class="line">2.关闭连接的时候，把连接放回连接池，而不是真正的关闭，所以可以减少频繁地打开和关闭连接</div></pre></td></tr></table></figure>
+<h1 id="设计数据库表结构"><a href="#设计数据库表结构" class="headerlink" title="设计数据库表结构"></a>设计数据库表结构</h1><p>Student</p>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>类型</th>
+<th>是否为空</th>
+<th>主键</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>STDID</td>
+<td>int</td>
+<td>否</td>
+<td>是</td>
+<td>学生ID</td>
+</tr>
+<tr>
+<td>StdName</td>
+<td>varchar(100)</td>
+<td>否</td>
+<td></td>
+<td>学生姓名</td>
+</tr>
+<tr>
+<td>Gender</td>
+<td>enum(‘M’, ‘F’)</td>
+<td>是</td>
+<td></td>
+<td>性别 </td>
+</tr>
+<tr>
+<td>Age</td>
+<td>tinyint</td>
+<td>是</td>
+<td></td>
+<td>年龄</td>
+</tr>
+</tbody>
+</table>
+<p>Course</p>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>类型</th>
+<th>是否为空</th>
+<th>主键</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CouID</td>
+<td>int</td>
+<td>否</td>
+<td>是</td>
+<td>课程ID</td>
+</tr>
+<tr>
+<td>Cname</td>
+<td>varchar(50)</td>
+<td>否</td>
+<td></td>
+<td>课程名称</td>
+</tr>
+<tr>
+<td>TID</td>
+<td>int</td>
+<td>否</td>
+<td></td>
+<td>老师ID</td>
+</tr>
+</tbody>
+</table>
+<p>Score</p>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>类型</th>
+<th>是否为空</th>
+<th>主键</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SID</td>
+<td>int</td>
+<td>否</td>
+<td>是</td>
+<td>分数ID</td>
+</tr>
+<tr>
+<td>StdID</td>
+<td>int</td>
+<td>否</td>
+<td></td>
+<td>学生ID</td>
+</tr>
+<tr>
+<td>CouID</td>
+<td>int</td>
+<td>否</td>
+<td></td>
+<td>课程ID </td>
+</tr>
+<tr>
+<td>Grade</td>
+<td>int</td>
+<td>否</td>
+<td></td>
+<td>分数</td>
+</tr>
+</tbody>
+</table>
+<p>Teacher</p>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>类型</th>
+<th>是否为空</th>
+<th>主键</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TID</td>
+<td>int</td>
+<td>否</td>
+<td>是</td>
+<td>老师ID</td>
+</tr>
+<tr>
+<td>Tname</td>
+<td>varchar(100)</td>
+<td>否</td>
+<td></td>
+<td>老师名字</td>
+</tr>
+</tbody>
+</table>
+<h1 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div></pre></td><td class="code"><pre><div class="line">import MySQLdb</div><div class="line"></div><div class="line">def connect_mysql():</div><div class="line">    db_config = &#123;</div><div class="line">        &apos;host&apos;: &apos;192.168.1.100&apos;,</div><div class="line">        &apos;port&apos;: 3306,</div><div class="line">        &apos;user&apos;: &apos;python&apos;,</div><div class="line">        &apos;passwd&apos;: &apos;123456&apos;,</div><div class="line">        &apos;db&apos;: &apos;python&apos;,</div><div class="line">        &apos;charset&apos;: &apos;utf8&apos;</div><div class="line">    &#125;</div><div class="line">    try:</div><div class="line">        cnx = MySQLdb.connect(**db_config)</div><div class="line">    except Exception as e:</div><div class="line">        raise e</div><div class="line">    return cnx</div><div class="line">    </div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    cnx = connect_mysql()</div><div class="line">    cus = cnx.cursor()</div><div class="line">    # sql  = &apos;&apos;&apos;insert into student(id, name, age, gender, score) values (&apos;1001&apos;, &apos;tom&apos;, 29, &apos;M&apos;, 88), (&apos;1002&apos;, &apos;alice&apos;, 29, &apos;M&apos;, 90), (&apos;1003&apos;, &apos;colgate&apos;, 33, &apos;M&apos;, 87);&apos;&apos;&apos;</div><div class="line">    student = &apos;&apos;&apos;create table Student(</div><div class="line">            StdID int not null,</div><div class="line">            StdName varchar(100) not null,</div><div class="line">            Gender enum(&apos;M&apos;, &apos;F&apos;),</div><div class="line">            Age tinyint</div><div class="line">    )&apos;&apos;&apos;</div><div class="line">    course = &apos;&apos;&apos;create table Course(</div><div class="line">            CouID int not null,</div><div class="line">            CName varchar(50) not null,</div><div class="line">            TID int not null</div><div class="line">    )&apos;&apos;&apos;</div><div class="line">    score = &apos;&apos;&apos;create table Score(</div><div class="line">                SID int not null,</div><div class="line">                StdID int not null,</div><div class="line">                CID int not null,</div><div class="line">                Grade int not null</div><div class="line">        )&apos;&apos;&apos;</div><div class="line">    teacher = &apos;&apos;&apos;create table Teacher(</div><div class="line">                    TID int not null,</div><div class="line">                    TName varchar(100) not null</div><div class="line">            )&apos;&apos;&apos;</div><div class="line">	 tmp = &apos;&apos;&apos;set @i := 0;</div><div class="line">            create table tmp as select (@i := @i + 1) as id from information_schema.tables limit 10;</div><div class="line">        &apos;&apos;&apos;</div><div class="line">    try:</div><div class="line">        cus.execute(student)</div><div class="line">        cus.execute(course)</div><div class="line">        cus.execute(score)</div><div class="line">        cus.execute(thearch)</div><div class="line">  		cus.execute(tmp)</div><div class="line">        cus.close()</div><div class="line">        cnx.commit()</div><div class="line">    except Exception as e:</div><div class="line">        cnx.rollback()</div><div class="line">        print(&apos;error&apos;)</div><div class="line">        raise e</div><div class="line">    finally:</div><div class="line">        cnx.close()</div><div class="line">        </div><div class="line">结果：</div><div class="line"></div><div class="line">mysql&gt; show tables;</div><div class="line">+------------------+</div><div class="line">| Tables_in_python |</div><div class="line">+------------------+</div><div class="line">| Course           |</div><div class="line">| Score            |</div><div class="line">| Student          |</div><div class="line">| Teacher          |</div><div class="line">| tmp              |</div><div class="line">+------------------+</div><div class="line">3	rows in set (0.00 sec)</div></pre></td></tr></table></figure>
+<p>没有任何异常，在数据库中查看表，出现这五个表。说明这五个表已经创建成功。<br>首先我们先来了解一下information_schema这个库，这个在mysql安装时就有了，提供了访问数据库元数据的方式。那什么是元数据库呢？元数据是关于数据的数据，如数据库名或表名，列的数据类型，或访问权限等。有些时候用于表述该信息的其他术语包括“数据词典”和“系统目录”。<br>information_schema数据库表说明:</p>
+<p>SCHEMATA表：提供了当前mysql实例中所有数据库的信息。是show databases的结果取之此表。</p>
+<p>TABLES表：提供了关于数据库中的表的信息（包括视图）。详细表述了某个表属于哪个schema，表类型，表引擎，创建时间等信息。是show tables from schemaname的结果取之此表。</p>
+<p>COLUMNS表：提供了表中的列信息。详细表述了某张表的所有列以及每个列的信息。是show columns from schemaname.tablename的结果取之此表。</p>
+<p>STATISTICS表：提供了关于表索引的信息。是show index from schemaname.tablename的结果取之此表。</p>
+<p>USER_PRIVILEGES（用户权限）表：给出了关于全程权限的信息。该信息源自mysql.user授权表。是非标准表。</p>
+<p>SCHEMA_PRIVILEGES（方案权限）表：给出了关于方案（数据库）权限的信息。该信息来自mysql.db授权表。是非标准表。</p>
+<p>TABLE_PRIVILEGES（表权限）表：给出了关于表权限的信息。该信息源自mysql.tables_priv授权表。是非标准表。</p>
+<p>COLUMN_PRIVILEGES（列权限）表：给出了关于列权限的信息。该信息源自mysql.columns_priv授权表。是非标准表。</p>
+<p>CHARACTER_SETS（字符集）表：提供了mysql实例可用字符集的信息。是SHOW CHARACTER SET结果集取之此表。<br>COLLATIONS表：提供了关于各字符集的对照信息。</p>
+<p>COLLATION_CHARACTER_SET_APPLICABILITY表：指明了可用于校对的字符集。这些列等效于SHOW COLLATION的前两个显示字段。</p>
+<p>TABLE_CONSTRAINTS表：描述了存在约束的表。以及表的约束类型。</p>
+<p>KEY_COLUMN_USAGE表：描述了具有约束的键列。</p>
+<p>ROUTINES表：提供了关于存储子程序（存储程序和函数）的信息。此时，ROUTINES表不包含自定义函数（UDF）。名为“mysql.proc name”的列指明了对应于INFORMATION_SCHEMA.ROUTINES表的mysql.proc表列。</p>
+<p>VIEWS表：给出了关于数据库中的视图的信息。需要有show views权限，否则无法查看视图信息。</p>
+<p>TRIGGERS表：提供了关于触发程序的信息。必须有super权限才能查看该表</p>
+<p>而TABLES在安装好mysql的时候，一定是有数据的，因为在初始化mysql的时候，就需要创建系统表，该表一定有数据。</p>
+<p>set @i := 0;<br>create table tmp as select (@i := @i + 1) as id from information_schema.tables limit 10;<br>mysql中变量不用事前申明，在用的时候直接用“@变量名”使用就可以了。set这个是mysql中设置变量的特殊用法，当@i需要在select中使用的时候，必须加:，这样就创建好了一个表tmp，查看tmp的数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">mysql&gt; select * from tmp;</div><div class="line">+------+</div><div class="line">| id   |</div><div class="line">+------+</div><div class="line">|    1 |</div><div class="line">|    2 |</div><div class="line">|    3 |</div><div class="line">|    4 |</div><div class="line">|    5 |</div><div class="line">|    6 |</div><div class="line">|    7 |</div><div class="line">|    8 |</div><div class="line">|    9 |</div><div class="line">|   10 |</div><div class="line">+------+</div><div class="line">10 rows in set (0.00 sec)</div></pre></td></tr></table></figure>
+<p>我们只是从information_schema.tables表中取10条数据，任何表有10条数据也是可以的，然后把变量@i作为id列的值，分10次不断输出，依据最后select的结果，创建表tmp。</p>
+<h1 id="增加数据"><a href="#增加数据" class="headerlink" title="增加数据"></a>增加数据</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">import MySQLdb</div><div class="line">def connect_mysql():</div><div class="line">    db_config = &#123;</div><div class="line">        &apos;host&apos;: &apos;192.168.1.100&apos;,</div><div class="line">        &apos;port&apos;: 3306,</div><div class="line">        &apos;user&apos;: &apos;python&apos;,</div><div class="line">        &apos;passwd&apos;: &apos;123456&apos;,</div><div class="line">        &apos;db&apos;: &apos;python&apos;,</div><div class="line">        &apos;charset&apos;: &apos;utf8&apos;</div><div class="line">    &#125;</div><div class="line">    cnx = MySQLdb.connect(**db_config)</div><div class="line">    return cnx</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    cnx = connect_mysql()</div><div class="line"></div><div class="line"></div><div class="line">    students = &apos;&apos;&apos;set @i := 10000;</div><div class="line">            insert into Student select @i:=@i+1, substr(concat(sha1(rand()), sha1(rand())), 1, 3 + floor(rand() * 75)), case floor(rand()*10) mod 2 when 1 then &apos;M&apos; else &apos;F&apos; end, 25-floor(rand() * 5)  from tmp a, tmp b, tmp c, tmp d;</div><div class="line">        &apos;&apos;&apos;</div><div class="line">    course = &apos;&apos;&apos;set @i := 10;</div><div class="line">            insert into Course select @i:=@i+1, substr(concat(sha1(rand()), sha1(rand())), 1, 5 + floor(rand() * 40)),  1 + floor(rand() * 100) from tmp a;</div><div class="line">        &apos;&apos;&apos;</div><div class="line">    score = &apos;&apos;&apos;set @i := 10000;</div><div class="line">            insert into Score select @i := @i +1, floor(10001 + rand()*10000), floor(11 + rand()*10), floor(1+rand()*100) from tmp a, tmp b, tmp c, tmp d;</div><div class="line">        &apos;&apos;&apos;</div><div class="line">    theacher = &apos;&apos;&apos;set @i := 100;</div><div class="line">            insert into Teacher select @i:=@i+1, substr(concat(sha1(rand()), sha1(rand())), 1, 5 + floor(rand() * 80)) from tmp a, tmp b;</div><div class="line">        &apos;&apos;&apos;</div><div class="line">    try:</div><div class="line">        cus_students = cnx.cursor()</div><div class="line">        cus_students.execute(students)</div><div class="line">        cus_students.close()</div><div class="line"></div><div class="line">        cus_course = cnx.cursor()</div><div class="line">        cus_course.execute(course)</div><div class="line">        cus_course.close()</div><div class="line"></div><div class="line">        cus_score = cnx.cursor()</div><div class="line">        cus_score.execute(score)</div><div class="line">        cus_score.close()</div><div class="line"></div><div class="line">        cus_teacher = cnx.cursor()</div><div class="line">        cus_teacher.execute(theacher)</div><div class="line">        cus_teacher.close()</div><div class="line"></div><div class="line">        cnx.commit()</div><div class="line">    except Exception as e:</div><div class="line">        cnx.rollback()</div><div class="line">        print(&apos;error&apos;)</div><div class="line">        raise e</div><div class="line">    finally:</div><div class="line">        cnx.close()</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">结果：</div><div class="line">mysql&gt; select count(*) from Student;</div><div class="line">+----------+</div><div class="line">| count(*) |</div><div class="line">+----------+</div><div class="line">|    10000 |</div><div class="line">+----------+</div><div class="line">1 row in set (0.01 sec)</div><div class="line"></div><div class="line">mysql&gt; select count(*) from Course; </div><div class="line">+----------+</div><div class="line">| count(*) |</div><div class="line">+----------+</div><div class="line">|       10 |</div><div class="line">+----------+</div><div class="line">1 row in set (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; select count(*) from Score;</div><div class="line">+----------+</div><div class="line">| count(*) |</div><div class="line">+----------+</div><div class="line">|    10000 |</div><div class="line">+----------+</div><div class="line">1 row in set (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; select count(*) from Teacher;</div><div class="line">+----------+</div><div class="line">| count(*) |</div><div class="line">+----------+</div><div class="line">|      100 |</div><div class="line">+----------+</div><div class="line">1 row in set (0.00 sec)</div><div class="line"></div><div class="line">在Student的表中增加了10000条数据，id是从10000开始的。count函数时用来统计个数的。</div><div class="line">解释；</div><div class="line">我们知道Student有四个字段，StdID，StdName，Gender，Age；我们先来看这个select语句：select @i:=@i+1, substr(concat(sha1(rand()), sha1(rand())), 1, 3+floor(rand() * 75)), case floor(rand()*10) mod 2 when 1 then &apos;M&apos; else &apos;F&apos; end, 25-floor(rand() * 5)  from tmp a, tmp b, tmp c, tmp d;</div><div class="line">StdID字段：@i就代表的就是，从10000开始，在上一句sql中设置的；</div><div class="line">StdName字段：substr(concat(sha1(rand()), sha1(rand())), 1, floor(rand() * 80))就代表的是，</div><div class="line">substr是一个字符串函数，从第二个参数1,开始取字符，取到3 + floor(rand() * 75)结束</div><div class="line">floor函数代表的是去尾法取整数。</div><div class="line">rand()函数代表的是从0到1取一个随机的小数。</div><div class="line">rand() * 75就代表的是：0到75任何一个小数，</div><div class="line">3+floor(rand() * 75)就代表的是：3到77的任意一个数字</div><div class="line">concat()函数是一个对多个字符串拼接函数。</div><div class="line">sha1是一个加密函数，sha1(rand())对生成的0到1的一个随机小数进行加密，转换成字符串的形式。</div><div class="line">	concat(sha1(rand()), sha1(rand()))就代表的是：两个0-1生成的小数加密然后进行拼接。</div><div class="line">substr(concat(sha1(rand()), sha1(rand())), 1, floor(rand() * 80))就代表的是：从一个随机生成的一个字符串的第一位开始取，取到（随机3-77）位结束。</div><div class="line">Gender字段：case floor(rand()*10) mod 2 when 1 then &apos;M&apos; else &apos;F&apos; end,就代表的是，</div><div class="line">	floor(rand()*10)代表0-9随机取一个数</div><div class="line">	floor(rand()*10) mod 2 就是对0-9取得的随机数除以2的余数，</div><div class="line">case floor(rand()*10) mod 2 when 1 then &apos;M&apos; else &apos;F&apos; end,代表：当余数为1是，就取M，其他的为F</div><div class="line">Age字段：25-floor(rand() * 5)代表的就是，25减去一个0-4的一个整数</div><div class="line">现在有一个问题，为什么会出现10000条数据呢，这10000条数据时怎么生成的呢，虽然字段一一对应上了，但是怎么出来这么多数据呢？</div><div class="line">先来看个例子：</div><div class="line">select * from tmp a, tmp b, tmp c;</div><div class="line">最终是1000条数据，a， b， c都是tmp表的别名，相当于每个表都循环了一遍。所以最终的数据是有多少个表，就是10的多少次幂。</div></pre></td></tr></table></figure>
+<h1 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line">10000条数据，可能会有同学的名字是一样的，需求就是在数据库中查出来所有名字有重复的同学的所有信息，然后写入到文件中。</div><div class="line"></div><div class="line">import codecs</div><div class="line"></div><div class="line">import MySQLdb</div><div class="line">def connect_mysql():</div><div class="line">    db_config = &#123;</div><div class="line">        &apos;host&apos;: &apos;192.168.1.100&apos;,</div><div class="line">        &apos;port&apos;: 3306,</div><div class="line">        &apos;user&apos;: &apos;python&apos;,</div><div class="line">        &apos;passwd&apos;: &apos;123456&apos;,</div><div class="line">        &apos;db&apos;: &apos;python&apos;,</div><div class="line">        &apos;charset&apos;: &apos;utf8&apos;</div><div class="line">    &#125;</div><div class="line">    cnx = MySQLdb.connect(**db_config)</div><div class="line">    return cnx</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    cnx = connect_mysql()</div><div class="line"></div><div class="line">    sql = &apos;&apos;&apos;select * from Student where StdName in (select StdName from Student group by StdName having count(1)&gt;1 ) order by StdName;&apos;&apos;&apos;</div><div class="line">    try:</div><div class="line">        cus = cnx.cursor()</div><div class="line">        cus.execute(sql)</div><div class="line">        result = cus.fetchall()</div><div class="line">        with codecs.open(&apos;select.txt&apos;, &apos;w+&apos;) as f:</div><div class="line">            for line in result:</div><div class="line">                f.write(str(line))</div><div class="line">                f.write(&apos;\n&apos;)</div><div class="line">        cus.close()</div><div class="line">        cnx.commit()</div><div class="line">    except Exception as e:</div><div class="line">        cnx.rollback()</div><div class="line">        print(&apos;error&apos;)</div><div class="line">        raise e</div><div class="line">    finally:</div><div class="line">        cnx.close()</div><div class="line"></div><div class="line">结果：</div><div class="line">本地目录出现一个select.txt文件，内容如下：</div><div class="line">(19844L, u&apos;315&apos;, u&apos;F&apos;, 24)</div><div class="line">(17156L, u&apos;315&apos;, u&apos;F&apos;, 25)</div><div class="line">(14349L, u&apos;48f&apos;, u&apos;F&apos;, 25)</div><div class="line">(17007L, u&apos;48f&apos;, u&apos;F&apos;, 25)</div><div class="line">(12629L, u&apos;afd&apos;, u&apos;F&apos;, 25)</div><div class="line">(13329L, u&apos;afd&apos;, u&apos;F&apos;, 24)</div><div class="line">(10857L, u&apos;e31&apos;, u&apos;F&apos;, 23)</div><div class="line">(14476L, u&apos;e31&apos;, u&apos;M&apos;, 21)</div><div class="line">(16465L, u&apos;ee5&apos;, u&apos;M&apos;, 22)</div><div class="line">(18570L, u&apos;ee5&apos;, u&apos;M&apos;, 21)</div><div class="line">(17056L, u&apos;ef0&apos;, u&apos;M&apos;, 23)</div><div class="line">(16946L, u&apos;ef0&apos;, u&apos;F&apos;, 24)</div><div class="line">解释：</div><div class="line">1.	先来分析一下select查询这个语句：</div><div class="line">select * from Student where StdName in (select StdName from Student group by StdName having count(1)&gt;1 ) order by StdName;&apos;</div><div class="line">2.	看括号里面的语句：select StdName from Student group by StdName having count(1)&gt;1；这个是把所有学生名字重复的学生都列出来，</div><div class="line">3.	最外面select是套了一个子查询，学生名字是在我们（）里面的查出来的学生名字，把这些学生的所有信息都列出来。</div><div class="line">4.	result = cus.fetchall()列出结果以后，我们通过fetchall()函数把所有的内容都取出来，这个result是一个tuple</div><div class="line">5.	通过文件写入的方式，把取出来的result写入到select.txt文件中。得到最终的结果。</div></pre></td></tr></table></figure>
+<h1 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h1><p>情景：有些老师不好好上课，导致课程的及格率太低，最差5名老师将会被开除</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">import MySQLdb</div><div class="line">def connect_mysql():</div><div class="line">    db_config = &#123;</div><div class="line">        &apos;host&apos;: &apos;192.168.1.100&apos;,</div><div class="line">        &apos;port&apos;: 3306,</div><div class="line">        &apos;user&apos;: &apos;python&apos;,</div><div class="line">        &apos;passwd&apos;: &apos;123456&apos;,</div><div class="line">        &apos;db&apos;: &apos;python&apos;,</div><div class="line">        &apos;charset&apos;: &apos;utf8&apos;</div><div class="line">    &#125;</div><div class="line">    cnx = MySQLdb.connect(**db_config)</div><div class="line">    return cnx</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    cnx = connect_mysql()</div><div class="line"></div><div class="line">    sql = &apos;&apos;&apos;delete from Teacher where TID in(</div><div class="line">    select TID from (select Course.CouID, Course.TID, Teacher.TName, count(Teacher.TID) as count_teacher from Course</div><div class="line">    left join Score on Score.Grade &lt; 60 and Course.CouID = Score.CouID</div><div class="line">    left join Teacher on Course.TID = Teacher.TID</div><div class="line">    group by Course.TID</div><div class="line">    order by count_teacher desc</div><div class="line">    limit 5)  as test )</div><div class="line">    &apos;&apos;&apos;</div><div class="line">    try:</div><div class="line">        cus = cnx.cursor()</div><div class="line">        cus.execute(sql)</div><div class="line">        result = cus.fetchall()</div><div class="line">        cus.close()</div><div class="line">        cnx.commit()</div><div class="line">    except Exception as e:</div><div class="line">        cnx.rollback()</div><div class="line">        print(&apos;error&apos;)</div><div class="line">        raise e</div><div class="line">    finally:</div><div class="line">        cnx.close()</div><div class="line"></div><div class="line">结果：</div><div class="line">程序正常执行，没有报错</div><div class="line">解释：</div><div class="line">1.	先查询出Course表中的Course.TID和Course.TID</div><div class="line">2.	left join 是关联Score表，查出Score.Grade &gt; 59，并且，课程ID和课程表的CouID要对应上</div><div class="line">3.	left join Teacher 是关联老师表，课程中的了老师ID和老师表中的老师ID对应上</div><div class="line">4.	select中加上老师的名字Teacher.Tname和count(Teacher.TID)</div><div class="line">5.	group by Course.TID，在根据老师的的TID进行分组</div><div class="line">6.	oder by 最后对count_teacher进行排序，取前5行，</div><div class="line">7.	在通过套用一个select子查询，把所有的TID搂出来</div><div class="line">8.	然后delete from Teacher 最后删除TID在上表中的子查询中。</div></pre></td></tr></table></figure>
+<h1 id="更改数据"><a href="#更改数据" class="headerlink" title="更改数据"></a>更改数据</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"># 把分数低于5分的成绩所有都加60分</div><div class="line"></div><div class="line">import MySQLdb</div><div class="line">def connect_mysql():</div><div class="line">    db_config = &#123;</div><div class="line">        &apos;host&apos;: &apos;192.168.1.100&apos;,</div><div class="line">        &apos;port&apos;: 3306,</div><div class="line">        &apos;user&apos;: &apos;python&apos;,</div><div class="line">        &apos;passwd&apos;: &apos;123456&apos;,</div><div class="line">        &apos;db&apos;: &apos;python&apos;,</div><div class="line">        &apos;charset&apos;: &apos;utf8&apos;</div><div class="line">    &#125;</div><div class="line">    cnx = MySQLdb.connect(**db_config)</div><div class="line">    return cnx</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    cnx = connect_mysql()</div><div class="line"></div><div class="line">    sql = &apos;&apos;&apos;select *, (grade+60) as newGrade from Score where Grade &lt;5;&apos;&apos;&apos;</div><div class="line">    update = &apos;&apos;&apos;update Score set grade = grade + 60 where grade &lt; 5;  &apos;&apos;&apos;</div><div class="line">    try:</div><div class="line">        cus_start = cnx.cursor()</div><div class="line">        cus_start.execute(sql)</div><div class="line">        result1 = cus_start.fetchall()</div><div class="line">        print(len(result1))</div><div class="line">        cus_start.close()</div><div class="line"></div><div class="line">        cus_update = cnx.cursor()</div><div class="line">        cus_update.execute(update)</div><div class="line">        cus_update.close()</div><div class="line"></div><div class="line">        cus_end = cnx.cursor()</div><div class="line">        cus_end.execute(sql)</div><div class="line">        result2 = cus_end.fetchall()</div><div class="line">        print(len(result2))</div><div class="line">        cus_end.close()</div><div class="line"></div><div class="line">        cnx.commit()</div><div class="line">    except Exception as e:</div><div class="line">        cnx.rollback()</div><div class="line">        print(&apos;error&apos;)</div><div class="line">        raise e</div><div class="line">    finally:</div><div class="line">        cnx.close()</div></pre></td></tr></table></figure>
+<h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#创建Course的CouID的字段为主键   Score的SID字段为主键 Student的StdID字段为主键  Teacher的TID字段为主键</div><div class="line"></div><div class="line">import MySQLdb</div><div class="line">def connect_mysql():</div><div class="line">    db_config = &#123;</div><div class="line">        &apos;host&apos;: &apos;192.168.1.100&apos;,</div><div class="line">        &apos;port&apos;: 3306,</div><div class="line">        &apos;user&apos;: &apos;python&apos;,</div><div class="line">        &apos;passwd&apos;: &apos;123456&apos;,</div><div class="line">        &apos;db&apos;: &apos;python&apos;,</div><div class="line">        &apos;charset&apos;: &apos;utf8&apos;</div><div class="line">    &#125;</div><div class="line">    cnx = MySQLdb.connect(**db_config)</div><div class="line">    return cnx</div><div class="line"></div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    cnx = connect_mysql()</div><div class="line"></div><div class="line">    sql1 = &apos;&apos;&apos;alter table Teacher add primary key(TID);&apos;&apos;&apos;</div><div class="line">    sql2 = &apos;&apos;&apos;alter table Student add primary key(StdID);&apos;&apos;&apos;</div><div class="line">    sql3 = &apos;&apos;&apos;alter table Score add primary key(SID);&apos;&apos;&apos;</div><div class="line">    sql4 = &apos;&apos;&apos;alter table Course add primary key(CouID);&apos;&apos;&apos;</div><div class="line">    sql5 = &apos;&apos;&apos;alter table Score add index idx_StdID_CouID(StdID, CouID);&apos;&apos;&apos;</div><div class="line">    # sql6 = &apos;&apos;&apos;alter table Score drop  index idx_StdID_CouID;&apos;&apos;&apos;   删除索引</div><div class="line">    sql7 = &apos;&apos;&apos;explain select * from Score where StdID = 16213;&apos;&apos;&apos;</div><div class="line">    try:</div><div class="line">        cus = cnx.cursor()</div><div class="line">        cus.execute(sql1)</div><div class="line">        cus.close()</div><div class="line"></div><div class="line">        cus = cnx.cursor()</div><div class="line">        cus.execute(sql2)</div><div class="line">        cus.close()</div><div class="line"></div><div class="line">        cus = cnx.cursor()</div><div class="line">        cus.execute(sql3)</div><div class="line">        cus.close()</div><div class="line"></div><div class="line">        cus = cnx.cursor()</div><div class="line">        cus.execute(sql4)</div><div class="line">        cus.close()</div><div class="line"></div><div class="line">        cus = cnx.cursor()</div><div class="line">        cus.execute(sql5)</div><div class="line">        cus.close()</div><div class="line"></div><div class="line">        cus = cnx.cursor()</div><div class="line">        cus.execute(sql7)</div><div class="line">        result = cus.fetchall()</div><div class="line">        print(result)</div><div class="line">        cus.close()</div><div class="line"></div><div class="line">        cnx.commit()</div><div class="line">    except Exception as e:</div><div class="line">        cnx.rollback()</div><div class="line">        print(&apos;error&apos;)</div><div class="line">        raise e</div><div class="line">    finally:</div><div class="line">        cnx.close()</div><div class="line"></div><div class="line">结果：</div><div class="line">((1L, u&apos;SIMPLE&apos;, u&apos;Score&apos;, u&apos;ref&apos;, u&apos;idx_StdID_CouID&apos;, u&apos;idx_StdID_CouID&apos;, u&apos;4&apos;, u&apos;const&apos;, 4L, None),)</div><div class="line">解释：</div><div class="line">Sql1， sql2， sql3， sql4是添加主键，sql5是增加一个索引，我们也可以在mysql的客户端上执行sq7，得到如下的结果：</div><div class="line">mysql&gt; explain select * from Score where StdID = 16213;               </div><div class="line">+----+-------------+-------+------+-----------------+-----------------+---------+-------+------+-------+</div><div class="line">| id | select_type | table | type | possible_keys   | key             | key_len | ref   | rows | Extra |</div><div class="line">+----+-------------+-------+------+-----------------+-----------------+---------+-------+------+-------+</div><div class="line">|  1 | SIMPLE      | Score | ref  | idx_StdID_CouID | idx_StdID_CouID | 4       | const |    4 | NULL  |</div><div class="line">+----+-------------+-------+------+-----------------+-----------------+---------+-------+------+-------+</div><div class="line">1 row in set (0.00 sec)</div><div class="line">这个说明，我们在搜索StdID的时候，是走了idx_StdID_CouID索引的。</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2017-11-21-mysql.html">mysql</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 shen 的个人博客">shen</a></p>
+  <p><span>发布时间:</span>2017年11月21日 - 00:11</p>
+  <p><span>最后更新:</span>2017年11月23日 - 21:11</p>
+  <p><span>原始链接:</span><a href="/2017-11-21-mysql.html" title="mysql">https://szone2.github.io/2017-11-21-mysql.html</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://szone2.github.io/2017-11-21-mysql.html"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+	clipboard.on('success', $(function(){
+	  $(".fa-clipboard").click(function(){
+		swal({   
+		  title: "",   
+		  text: '复制成功',   
+		  html: false,
+		  timer: 500,   
+		  showConfirmButton: false
+	    });
+	  });
+    }));  
+</script>
+
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017-11-14-re.html" rel="next" title="正则">
+                <i class="fa fa-chevron-left"></i> 正则
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017-11-24-nosql.html" rel="prev" title="nosql">
+                nosql <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">shen</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Python操作Mysql"><span class="nav-number">1.</span> <span class="nav-text">使用Python操作Mysql</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows下安装MySQL-python-1-2-5"><span class="nav-number">1.1.</span> <span class="nav-text">Windows下安装MySQL-python 1.2.5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装mysql数据库"><span class="nav-number">1.2.</span> <span class="nav-text">安装mysql数据库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#链接数据库"><span class="nav-number">2.</span> <span class="nav-text">链接数据库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mysql事务"><span class="nav-number">3.</span> <span class="nav-text">mysql事务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mysql操作数据"><span class="nav-number">4.</span> <span class="nav-text">mysql操作数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#游标"><span class="nav-number">5.</span> <span class="nav-text">游标</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据库连接池"><span class="nav-number">6.</span> <span class="nav-text">数据库连接池</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设计数据库表结构"><span class="nav-number">7.</span> <span class="nav-text">设计数据库表结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建表"><span class="nav-number">8.</span> <span class="nav-text">创建表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#增加数据"><span class="nav-number">9.</span> <span class="nav-text">增加数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查询数据"><span class="nav-number">10.</span> <span class="nav-text">查询数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#删除数据"><span class="nav-number">11.</span> <span class="nav-text">删除数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更改数据"><span class="nav-number">12.</span> <span class="nav-text">更改数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#索引"><span class="nav-number">13.</span> <span class="nav-text">索引</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shen</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

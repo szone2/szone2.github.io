@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="复习," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="pyhon的文件类型类型一：源代码 python源代码文件以py为扩展名，由python程序解释，不需要编译">
+<meta name="keywords" content="复习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python基础">
+<meta property="og:url" content="https://szone2.github.io/2017-11-28-python基础.html">
+<meta property="og:site_name" content="Python 学习博客">
+<meta property="og:description" content="pyhon的文件类型类型一：源代码 python源代码文件以py为扩展名，由python程序解释，不需要编译">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-30T13:56:42.775Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python基础">
+<meta name="twitter:description" content="pyhon的文件类型类型一：源代码 python源代码文件以py为扩展名，由python程序解释，不需要编译">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://szone2.github.io/2017-11-28-python基础.html"/>
+
+
+
+
+
+  <title>python基础 | Python 学习博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Python 学习博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://szone2.github.io/2017-11-28-python基础.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Python 学习博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python基础</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-28T21:59:42+08:00">
+                2017-11-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="pyhon的文件类型"><a href="#pyhon的文件类型" class="headerlink" title="pyhon的文件类型"></a>pyhon的文件类型</h1><p>类型一：源代码</p>
+<p>python源代码文件以py为扩展名，由python程序解释，不需要编译</p>
+<a id="more"></a>
+<p>类型二：字节代码</p>
+<p>python源码文件经编译后生成的扩展名为pyc的文件</p>
+<p>编译方法：</p>
+<p>import py_compile</p>
+<p>py_compile.compile(‘hello.py’)</p>
+<p>类型三：优化代码</p>
+<p>经过优化的源码文件，扩展名为”pyo”</p>
+<p>-O 表示优化，-m表示因为模块py_compile<br>python -O -m py_compile hello.py</p>
+<h1 id="python的变量"><a href="#python的变量" class="headerlink" title="python的变量"></a>python的变量</h1><h2 id="变量的概念"><a href="#变量的概念" class="headerlink" title="变量的概念"></a>变量的概念</h2><p>变量是计算机内存中的一块区域，变量可以存储规定范围内的值，而且值可以改变</p>
+<p>python下变量是对一个数据的引用</p>
+<h2 id="变量的命名"><a href="#变量的命名" class="headerlink" title="变量的命名"></a>变量的命名</h2><p>变量名由字母、数字、下划线组成</p>
+<p>变量不能以数字开头</p>
+<p>不可以使用关键字</p>
+<p>变量的赋值是变量的声明和定义的过程</p>
+<h2 id="运算符与表达式"><a href="#运算符与表达式" class="headerlink" title="运算符与表达式"></a>运算符与表达式</h2><p>赋值运算符、算术运算符、关系运算符、逻辑运算符</p>
+<p>表达式是将不同的数据（包括变量、函数）用运算符号按一定规则连接起来的一种式子</p>
+<h2 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h2><ul>
+<li><ul>
+<li>* / // % **</li>
+</ul>
+</li>
+</ul>
+<h2 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h2><p>and : True and False</p>
+<p>or ： False and True</p>
+<p>not : not True</p>
+<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><p>写一个四则运算器(加减乘除)</p>
+<p>要求从键盘读取数字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/python</div><div class="line"></div><div class="line">num1 = input(&quot;Please a number: &quot;)</div><div class="line">num2 = input(&quot;Please a number: &quot;)</div><div class="line"></div><div class="line">print &quot;%s + %s = %s&quot; %(num1, num2, num1+num2)</div><div class="line">print &quot;%s + %s = %s&quot; %(num1, num2, num1-num2)</div><div class="line">print &quot;%s + %s = %s&quot; %(num1, num2, num1*num2)</div><div class="line">print &quot;%s + %s = %s&quot; %(num1, num2, num1/num2)</div></pre></td></tr></table></figure>
+<h1 id="Python的数值和字符串"><a href="#Python的数值和字符串" class="headerlink" title="Python的数值和字符串"></a>Python的数值和字符串</h1><h2 id="数值类型"><a href="#数值类型" class="headerlink" title="数值类型"></a>数值类型</h2><p>整型、长整型、浮点型（0.0, 12.0, -18.8, 3e+7)、复数型（后面多个j：例如23j）</p>
+<h2 id="字符串类型"><a href="#字符串类型" class="headerlink" title="字符串类型"></a>字符串类型</h2><p>有三种方法定义字符串类型</p>
+<p>str = ‘this is string’</p>
+<p>str = “this is string”</p>
+<p>str = ‘’’this is string’’’</p>
+<p>注： 三重印号除了能定义字符串还可以用作注释。</p>
+<h1 id="if"><a href="#if" class="headerlink" title="if"></a>if</h1><p>if expression<br>    statement(s)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/python</div><div class="line"></div><div class="line"># not优先级比and高</div><div class="line"></div><div class="line">if not 1 &gt; 2 and 1 == 1:</div><div class="line">    print &apos;hello python&apos;</div><div class="line">    print &apos;True&apos;</div><div class="line">elif &apos;a&apos;:</div><div class="line">    print a</div><div class="line">else:</div><div class="line">    print &apos;ha&apos;</div><div class="line">print &apos;main&apos;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/python</div><div class="line"></div><div class="line">score = raw_input(&quot;Please a num: &quot;)</div><div class="line">if score &gt;= 90:</div><div class="line">    print &apos;A&apos;</div><div class="line">    print &apos;very good&apos;</div><div class="line">elif score &gt;= 80:</div><div class="line">    print &apos;B&apos;</div><div class="line">    print &apos;good&apos;</div><div class="line">elif score &gt;= 70:</div><div class="line">    print &apos;C&apos;</div><div class="line">    print &apos;pass&apos;</div><div class="line">else:</div><div class="line">    print &apos;D&apos;</div><div class="line"></div><div class="line">print &apos;End&apos;</div></pre></td></tr></table></figure>
+<p>逻辑值(bool)包含了两个值：</p>
+<p>True：表示非空的量(比如:string, tuple, list, set dictonary), 所有非零数</p>
+<p>False: 表示0, None, 空的量等</p>
+<h1 id="for遍历列表"><a href="#for遍历列表" class="headerlink" title="for遍历列表"></a>for遍历列表</h1><p>for循环：</p>
+<p>在序列里，使用for循环遍历</p>
+<p>语法：</p>
+<p>for iterating_var in sequence:<br>    statement(s)</p>
+<p>步长为2：<br>range(0, 10, 2)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/python</div><div class="line"></div><div class="line">print [i for i in range(1, 11) if i % 2 == 0]</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/python</div><div class="line"></div><div class="line"># 先对i进行遍历，然后筛选出符合条件（if i % 2 != 0）的，最后进行操作(i乘方)</div><div class="line"></div><div class="line">for i in [i**2 for i in range(1, 11) if i % 2 != 0]:</div><div class="line">    print i,</div></pre></td></tr></table></figure>
+<h1 id="for遍历字典"><a href="#for遍历字典" class="headerlink" title="for遍历字典"></a>for遍历字典</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/python</div><div class="line">dic = &#123;&apos;a&apos;:1, &apos;b&apos;:100, &apos;c&apos;:200&#125;</div><div class="line"></div><div class="line">for k in dic:</div><div class="line">    print k, dic[k]</div><div class="line"></div><div class="line"># items方法，返回的是一个列表</div><div class="line">for k, v in dic.items():</div><div class="line">    print k, v</div><div class="line">    </div><div class="line"># iteritems方法,返回的是对象</div><div class="line">for k, v in dic.iteritems():</div><div class="line">    print k, v</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"># 乘法表</div><div class="line"></div><div class="line">#!/usr/bin/python</div><div class="line"></div><div class="line"># 外层的for控制有9行</div><div class="line"></div><div class="line">for i in xrange(1, 10):</div><div class="line"># 内层for控制列</div><div class="line">    for j in xrange(1, i+1):</div><div class="line">        # pirnt默认带有换行符 ,号不让输出换行符</div><div class="line">        print &quot;%s x %s = %s&quot; % (j, i, j*i),</div><div class="line">    # 内层循环结束后再输出换行符</div><div class="line">    print</div></pre></td></tr></table></figure>
+<h1 id="文件访问"><a href="#文件访问" class="headerlink" title="文件访问"></a>文件访问</h1><p>open</p>
+<p>r: 以读方式打开</p>
+<p>w: 以写方式打开</p>
+<p>a: 以追加模式</p>
+<p>r+: 以读写模式打开</p>
+<p>w+: 以读写模式打开</p>
+<p>a+: 以读写模式打开</p>
+<p>rb: 以二进制读模式打开</p>
+<p>wb: 以二进制写模式打开</p>
+<p>ab: 以二进制追加模式打开</p>
+<p>rb+: 以二进制读写模式打开</p>
+<p>wb+: 以二进制读写模式打开</p>
+<p>ab+: 以二进制读写模式打开</p>
+<p>with open</p>
+<h2 id="for循环遍历文件"><a href="#for循环遍历文件" class="headerlink" title="for循环遍历文件"></a>for循环遍历文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"># /tmp/tmp.txt内容：</div><div class="line"># 123 456</div><div class="line"></div><div class="line">#!/usr/bin/python</div><div class="line"></div><div class="line"># fd.readlines生成一个列表，占用内存</div><div class="line">fd = open(&apos;/tmp/tmp.txt&apos;)</div><div class="line">for line in fd.readlines():</div><div class="line"># 加,抑制print自带的换行</div><div class="line">    print line,</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/python</div><div class="line"></div><div class="line"># fd是一个文件对象</div><div class="line">fd = open(&apos;/tmp/tmp.txt&apos;)</div><div class="line"># for循环可以对fd做遍历，遍历一次取一行，比上面那种节省内存</div><div class="line">for line in fd:</div><div class="line"># 加,抑制print自带的换行</div><div class="line">    print line,</div><div class="line">fd.close()</div></pre></td></tr></table></figure>
+<h2 id="while循环遍历文件"><a href="#while循环遍历文件" class="headerlink" title="while循环遍历文件"></a>while循环遍历文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/python</div><div class="line"></div><div class="line">fd = open(&apos;/tmp/tmp.txt&apos;)</div><div class="line">while True:</div><div class="line"># readline一行一行读</div><div class="line">    line = fd.readline()</div><div class="line">#当读到空时结束，文件结尾为空</div><div class="line">    if not line:</div><div class="line">        break</div><div class="line">    print line,</div><div class="line">fd.close()</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/python</div><div class="line"></div><div class="line">with open(&apos;/tmp/tmp.txt&apos;) as fd:</div><div class="line">    while True:</div><div class="line">    # readline一行一行读</div><div class="line">        line = fd.readline()</div><div class="line">    #当读到空时结束，文件结尾为空</div><div class="line">        if not line:</div><div class="line">            break</div><div class="line">        print line,</div><div class="line">    fd.close()</div></pre></td></tr></table></figure>
+<h1 id="统计系统剩余的内存"><a href="#统计系统剩余的内存" class="headerlink" title="统计系统剩余的内存"></a>统计系统剩余的内存</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"># free命令其实是查看/proc/meminfo文件</div><div class="line"># 字符串的方法startswith，判断是以什么开头的，返回一个布尔值</div><div class="line">#!/usr/bin/python</div><div class="line"></div><div class="line">with open(&apos;/proc/meminfo&apos;) as fd:</div><div class="line">    for line in fd:</div><div class="line">        # 总内存</div><div class="line">        if line.startswith(&apos;MemTotal&apos;)</div><div class="line">        # 字符串切片</div><div class="line">            total = line.split()[1]</div><div class="line">        # 如果满足条件则不用执行下面的语句</div><div class="line">            continue</div><div class="line"></div><div class="line">        if line.startswith(&apos;MemFree&apos;):</div><div class="line">            free = line.split()[1]</div><div class="line">            break</div><div class="line"></div><div class="line"># free是字符串类型，加int转换为整型,格式化输出%.2f保留两位小数</div><div class="line">print &quot;%.2f&quot; % (int(free)/1024.0)+&apos;M&apos;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2017-11-28-python基础.html">python基础</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 shen 的个人博客">shen</a></p>
+  <p><span>发布时间:</span>2017年11月28日 - 21:11</p>
+  <p><span>最后更新:</span>2017年11月30日 - 21:11</p>
+  <p><span>原始链接:</span><a href="/2017-11-28-python基础.html" title="python基础">https://szone2.github.io/2017-11-28-python基础.html</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://szone2.github.io/2017-11-28-python基础.html"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+	clipboard.on('success', $(function(){
+	  $(".fa-clipboard").click(function(){
+		swal({   
+		  title: "",   
+		  text: '复制成功',   
+		  html: false,
+		  timer: 500,   
+		  showConfirmButton: false
+	    });
+	  });
+    }));  
+</script>
+
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/复习/" rel="tag"># 复习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017-11-24-nosql.html" rel="next" title="nosql">
+                <i class="fa fa-chevron-left"></i> nosql
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017-12-01-python基础进阶.html" rel="prev" title="python基础进阶">
+                python基础进阶 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">shen</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pyhon的文件类型"><span class="nav-number">1.</span> <span class="nav-text">pyhon的文件类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#python的变量"><span class="nav-number">2.</span> <span class="nav-text">python的变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#变量的概念"><span class="nav-number">2.1.</span> <span class="nav-text">变量的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量的命名"><span class="nav-number">2.2.</span> <span class="nav-text">变量的命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运算符与表达式"><span class="nav-number">2.3.</span> <span class="nav-text">运算符与表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算术运算符"><span class="nav-number">2.4.</span> <span class="nav-text">算术运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑运算符"><span class="nav-number">2.5.</span> <span class="nav-text">逻辑运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#练习"><span class="nav-number">2.6.</span> <span class="nav-text">练习</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python的数值和字符串"><span class="nav-number">3.</span> <span class="nav-text">Python的数值和字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数值类型"><span class="nav-number">3.1.</span> <span class="nav-text">数值类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串类型"><span class="nav-number">3.2.</span> <span class="nav-text">字符串类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#if"><span class="nav-number">4.</span> <span class="nav-text">if</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#for遍历列表"><span class="nav-number">5.</span> <span class="nav-text">for遍历列表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#for遍历字典"><span class="nav-number">6.</span> <span class="nav-text">for遍历字典</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件访问"><span class="nav-number">7.</span> <span class="nav-text">文件访问</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#for循环遍历文件"><span class="nav-number">7.1.</span> <span class="nav-text">for循环遍历文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#while循环遍历文件"><span class="nav-number">7.2.</span> <span class="nav-text">while循环遍历文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#统计系统剩余的内存"><span class="nav-number">8.</span> <span class="nav-text">统计系统剩余的内存</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shen</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

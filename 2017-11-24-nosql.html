@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="nosql," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="redis服务器搭建redis官网：https://redis.io/">
+<meta name="keywords" content="nosql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nosql">
+<meta property="og:url" content="https://szone2.github.io/2017-11-24-nosql.html">
+<meta property="og:site_name" content="Python 学习博客">
+<meta property="og:description" content="redis服务器搭建redis官网：https://redis.io/">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-07T14:35:41.057Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="nosql">
+<meta name="twitter:description" content="redis服务器搭建redis官网：https://redis.io/">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://szone2.github.io/2017-11-24-nosql.html"/>
+
+
+
+
+
+  <title>nosql | Python 学习博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Python 学习博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://szone2.github.io/2017-11-24-nosql.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Python 学习博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">nosql</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-24T22:50:32+08:00">
+                2017-11-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="redis服务器搭建"><a href="#redis服务器搭建" class="headerlink" title="redis服务器搭建"></a>redis服务器搭建</h1><p>redis官网：<a href="https://redis.io/" target="_blank" rel="external">https://redis.io/</a></p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">$ wget http://download.redis.io/releases/redis-4.0.2.tar.gz</div><div class="line">$ tar xzf redis-4.0.2.tar.gz</div><div class="line">$ cd redis-4.0.2</div><div class="line">$ make</div><div class="line"></div><div class="line">修改配置文件支持后台启动redis</div><div class="line">vi redis.conf</div><div class="line">把daemon no 改为daemon yes</div><div class="line"></div><div class="line">src/redis-server</div><div class="line"></div><div class="line">$ src/redis-cli</div><div class="line">redis&gt; set foo bar</div><div class="line">OK</div><div class="line">redis&gt; get foo</div><div class="line">&quot;bar&quot;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">配置主从的方法：</div><div class="line"></div><div class="line">只需在从的配置文件最后一行，添加</div><div class="line"></div><div class="line">salvof 主的IP或域名 端口号</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">安装redis客户端</div><div class="line">pip install redis</div></pre></td></tr></table></figure>
+<h1 id="redis简单操作"><a href="#redis简单操作" class="headerlink" title="redis简单操作"></a>redis简单操作</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">import redis</div><div class="line"></div><div class="line"># r = redis.Redis(host=&quot;192.168.1.100&quot;, prot=6379)</div><div class="line"></div><div class="line"># 或者</div><div class="line">redis_config = &#123;</div><div class="line">    &quot;hosts&quot;: &quot;192.168.1.100&quot;</div><div class="line">    &quot;port&quot;: 6379</div><div class="line">&#125;</div><div class="line"></div><div class="line">r = redis.Redis(**redis_config)</div><div class="line"></div><div class="line">r.set(&quot;alice&quot;, &quot;abc&quot;)</div><div class="line"># 获取所有的keys</div><div class="line">print(r.keys())</div><div class="line">print(r.get(&quot;alice&quot;)</div></pre></td></tr></table></figure>
+<h1 id="连接池"><a href="#连接池" class="headerlink" title="连接池"></a>连接池</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">import redis</div><div class="line"></div><div class="line">def get_redis_connect():</div><div class="line"></div><div class="line">    redis_config = &#123;</div><div class="line">        &quot;hosts&quot;: &quot;192.168.1.100&quot;</div><div class="line">        &quot;port&quot;: 6379</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    pool = redis.ConnectionPool(**redis_config)</div><div class="line">    r = redis.Redis(connection_pool=pool)</div><div class="line">    return r</div><div class="line"></div><div class="line">if __name__ == &quot;__main__&quot;:</div><div class="line">    r = get_redis_connect()</div><div class="line">    r.set(&quot;name&quot;, &quot;alice&quot;)</div><div class="line">    print(r.get(&quot;name&quot;))</div></pre></td></tr></table></figure>
+<h1 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">redis-py默认在执行每次请求都会创建（连接池申请连接）和断开（归还连接池）一次连接操作，如果想要在一次请求中指定多个命令，则可以使用pipline实现一次请求指定多个命令，并且默认情况下一次pipline 是原子性操作。减少功耗</div><div class="line">redis是一个cs模式的tcp server，使用和http类似的请求响应协议。一个client可以通过一个socket连接发起多个请求命令。每个请求命令发出后client通常会阻塞并等待redis服务处理，redis处理完后请求命令后会将结果通过响应报文返回给client。基本的通信过程如下：</div><div class="line"></div><div class="line">Client: INCR X</div><div class="line">Server: 1</div><div class="line">Client: INCR X</div><div class="line">Server: 2</div><div class="line">Client: INCR X</div><div class="line">Server: 3</div><div class="line">Client: INCR X</div><div class="line">Server: 4</div><div class="line">基本上四个命令需要8个tcp报文才能完成。由于通信会有网络延迟,假如从client和server之间的包传输时间需要0.125秒。那么上面的四个命令8个报文至少会需要1秒才能完成。这样即使redis每秒能处理100个命令，而我们的client也只能一秒钟发出四个命令。这显示没有充分利用 redis的处理能力。除了可以利用mget,mset 之类的单条命令处理多个key的命令外我们还可以利用pipeline的方式从client打包多条命令一起发出，不需要等待单条命令的响应返回，而redis服务端会处理完多条命令后会将多条命令的处理结果打包到一起返回给客户端。通信过程如下：</div><div class="line">Client: INCR X</div><div class="line">Client: INCR X</div><div class="line">Client: INCR X</div><div class="line">Client: INCR X</div><div class="line">Server: 1</div><div class="line">Server: 2</div><div class="line">Server: 3</div><div class="line">Server: 4</div><div class="line">假设不会因为tcp报文过长而被拆分。可能两个tcp报文就能完成四条命令，client可以将四个命令放到一个tcp报文一起发送，server则可以将四条命令的处理结果放到一个tcp报文返回。通过pipeline方式当有大批量的操作时候。我们可以节省很多原来浪费在网络延迟的时间。需要注意到是用 pipeline方式打包命令发送，redis必须在处理完所有命令前先缓存起所有命令的处理结果。打包的命令越多，缓存消耗内存也越多。所以并是不是打包的命令越多越好。具体多少合适需要根据具体情况测试</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"># 使用管道和不使用管道之间的差别实验</div><div class="line"></div><div class="line">import datetime</div><div class="line">import redis</div><div class="line"></div><div class="line"></div><div class="line">def withpipe(r):</div><div class="line">    # 管道对象pipe</div><div class="line">    pipe = r.pipeline(transaction=True)</div><div class="line">    # 利用for循环存入1000个k-v数据</div><div class="line">    for i in xrange(1, 1000):</div><div class="line">        key = &quot;test1&quot; +str(i)</div><div class="line">        value = &quot;test1&quot; + str(i)</div><div class="line">        pipe.set(key, value)</div><div class="line">    # 执行</div><div class="line">    pipe.execute()</div><div class="line"></div><div class="line"></div><div class="line">def withoutpipe(r):</div><div class="line">    # pipe = r.pipeline(transaction=True)</div><div class="line">    for i in xrange(1, 1000):</div><div class="line">        key = &quot;test1&quot; + str(i)</div><div class="line">        value = &quot;test1&quot; + str(i)</div><div class="line">        r.set(key, value)</div><div class="line"></div><div class="line">if __name__ == &quot;__main__&quot;:</div><div class="line">    pool = redis.ConnectionPool(host=&quot;192.168.1.100&quot;, port=6379, db=0)</div><div class="line">    r1 = redis.Redis(connection_pool=pool)</div><div class="line">    r2 = redis.Redis(connection_pool=pool)</div><div class="line">    start = datetime.datetime.now()</div><div class="line">    # print(start)</div><div class="line">    withpipe(r1)</div><div class="line">    end = datetime.datetime.now()</div><div class="line">    # print((end-start).microseconds)</div><div class="line">    # print(end-start)</div><div class="line">    t_time = (end - start).microseconds</div><div class="line">    print(&quot;withpipe time is : &#123;0&#125;&quot;.format(t_time))</div><div class="line"></div><div class="line">    start = datetime.datetime.now()</div><div class="line">    withoutpipe(r2)</div><div class="line">    end = datetime.datetime.now()</div><div class="line">    t_time = (end - start).microseconds</div><div class="line">    print(&quot;withoutpipe time is : &#123;0&#125;&quot;.format(t_time))</div><div class="line"></div><div class="line">结果：</div><div class="line">withpipe time is : 28000</div><div class="line">withoutpipe time is : 253000</div></pre></td></tr></table></figure>
+<h1 id="字符串操作"><a href="#字符串操作" class="headerlink" title="字符串操作"></a>字符串操作</h1><p>redis中的string在内存中都是按照一个Key对应一个value来存储的，如：</p>
+<p>r.set(‘name’, ‘alice’)</p>
+<p>set 的使用方法：</p>
+<p>set(name, value, ex=None, px=None, nx=False, xx=False)</p>
+<p>ex，过期时间（秒）</p>
+<p>px，过期时间（毫秒）</p>
+<p>nx，如果设置为True，则只有name不存在是，当前set操作才执行，同setnx(name, value)</p>
+<p>xx，如果设置为True，则只有name存在时，当前set操作才执行</p>
+<p>get(name) 获取值</p>
+<p>print(r.get(“name”)</p>
+<p>mset() 批量设置值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">import redis</div><div class="line"></div><div class="line">pool = redis.ConnectionPool(host=&quot;192.168.1.100&quot;, port=6379, db=0)</div><div class="line">r = redis.Redis(connection_pool=pool)</div><div class="line"></div><div class="line">r.set(&quot;name&quot;, &quot;alice&quot;)</div><div class="line">print(r.key())</div><div class="line">print(r.get(&quot;name&quot;)</div><div class="line"></div><div class="line">r.mset(name1 = &quot;foo&quot;, name2 = &quot;tom&quot;)</div><div class="line">print(r.mget(&quot;name1&quot;, &quot;name2&quot;)</div><div class="line"></div><div class="line">r.mset(&#123;&quot;hello&quot;: &quot;world&quot;, &quot;nihao&quot;: &quot;nice&quot;&#125;)</div><div class="line">print(r.keys())</div><div class="line">print(r.mget(&quot;hello&quot;, &quot;nihao&quot;)</div></pre></td></tr></table></figure>
+<h1 id="list"><a href="#list" class="headerlink" title="list"></a>list</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">redis中的List在在内存中按照一个name对应一个List来存储</div><div class="line">lpush(name,values)</div><div class="line">#在name对应的list中添加元素，每个新的元素都添加到列表的最左边</div><div class="line">r.lpush(&quot;list_name&quot;,2)</div><div class="line">r.lpush(&quot;list_name&quot;,3,4,5)#保存在列表中的顺序为5，4，3，2</div><div class="line">rpush(name,values)</div><div class="line">#同lpush，但每个新的元素都添加到列表的最右边</div><div class="line">lpushx(name,value)</div><div class="line">#在name对应的list中添加元素，只有name已经存在时，值添加到列表的最左边</div><div class="line">rpushx(name,value)</div><div class="line">#在name对应的list中添加元素，只有name已经存在时，值添加到列表的最右边</div><div class="line">llen(name)</div><div class="line">#name对应的list元素的个数</div><div class="line">print(r.llen(&quot;list_name&quot;))、</div><div class="line">linsert(name,where,refvalue,value)：在name对应的列表的某一个值前后插入一个新值</div><div class="line">#参数：</div><div class="line">    # name，redis的name</div><div class="line">    # where，BEFORE或AFTER</div><div class="line">    # refvalue，标杆值，即：在它前后插入数据</div><div class="line">#value，要插入的数据</div><div class="line">r.lset(name,index,value)：对name对应的list中的某一个索引位置重新赋值。</div><div class="line">#参数：</div><div class="line">    # name，redis的name</div><div class="line">    # index，list的索引位置</div><div class="line">#value，要设置的值</div><div class="line">r.lrem(name,value,num):在name对应的list中删除指定的值</div><div class="line">#参数：</div><div class="line">    # name，redis的name</div><div class="line">    # value，要删除的值</div><div class="line">    # num，  num=0，删除列表中所有的指定值；</div><div class="line">           # num=2,从前到后，删除2个；</div><div class="line">           # num=-2,从后向前，删除2个</div><div class="line">lpop(name)：在name对应的列表的左侧获取第一个元素并在列表中移除，返回值删除那个元素的值</div><div class="line">#扩展： rpop(name) 表示从右向左操作</div><div class="line">lindex(name,index)：在name对应的列表中根据索引取列表元素</div><div class="line">lrange(name,start,end)：在name对应的列表分片获取数据</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">import redis</div><div class="line"></div><div class="line">pool = redis.ConnectionPool(host=&quot;192.168.48.131&quot;, port=6379, db=0)</div><div class="line">r = redis.Redis(connection_pool=pool)</div><div class="line"># lpush  在list的左边增加一个元素           left</div><div class="line"># rpush  在list的右边增加一个元素           right</div><div class="line">r.lpush(&quot;list1&quot;, &quot;test1&quot;)</div><div class="line">r.rpush(&quot;list1&quot;, &quot;li&quot;)</div><div class="line">r.lpush(&quot;list1&quot;, &quot;test2&quot;)</div><div class="line">r.lpush(&quot;list1&quot;, &quot;test3&quot;)</div><div class="line">r.lpush(&quot;list1&quot;, &quot;test2&quot;)</div><div class="line">r.lpush(&quot;list1&quot;, 2, 3, 4)</div><div class="line">r.lpush(&quot;list1&quot;, &quot;test2&quot;)</div><div class="line">print(r.lrange(&quot;list1&quot;, 0, -1))</div><div class="line"></div><div class="line"># 最终的list结果是    [4, 3, 2, &quot;test3&quot;, &quot;test2&quot;, &quot;test1&quot;, &quot;li&quot;]</div></pre></td></tr></table></figure>
+<h1 id="set操作"><a href="#set操作" class="headerlink" title="set操作"></a>set操作</h1><blockquote>
+<p>set集合就是不重复的列表</p>
+</blockquote>
+<p>#给name对应的集合中添加元素</p>
+<p>sadd(name,values)</p>
+<p>r.sadd(“set_name”,”aa”)</p>
+<p>r.sadd(“set_name”,”aa”,”bb”)</p>
+<p>#获取name对应的集合的所有成员</p>
+<p>smembers(name)</p>
+<p>#获取name对应的集合中的元素个数</p>
+<p>scard(name)</p>
+<p>r.scard(“set_name”)</p>
+<p>#获取多个name对应集合的并集</p>
+<p>sinter(keys, *args)</p>
+<p>r.sadd(“set_name”,”aa”,”bb”)</p>
+<p>r.sadd(“set_name1”,”bb”,”cc”)</p>
+<p>r.sadd(“set_name2”,”bb”,”cc”,”dd”)</p>
+<p>print(r.sinter(“set_name”,”set_name1”,”set_name2”))</p>
+<p>#输出:｛bb｝</p>
+<p>#检查value是否是name对应的集合内的元素</p>
+<p>sismember(name, value)</p>
+<p>#从集合的右侧移除一个元素，并将其返回</p>
+<p>spop(name)</p>
+<p>#获取多个name对应的集合的并集</p>
+<p>sunion(keys, *args)</p>
+<p>r.sunion(“set_name”,”set_name1”,”set_name2”)</p>
+<p>srem(name, value)  删除集合中的某个元素</p>
+<p>r.srem(“set_name”, “aa”)</p>
+<h1 id="hash类型操作"><a href="#hash类型操作" class="headerlink" title="hash类型操作"></a>hash类型操作</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">import redis</div><div class="line"></div><div class="line">pool = redis.ConnectionPool(host=&quot;192.168.1.100&quot;, port=6379, db=0)</div><div class="line">r = redis.Redis(connection_pool=pool)</div><div class="line"></div><div class="line"># hash类型的操作就是一个name对应一个字典</div><div class="line"># hset(name, key, value)</div><div class="line">r.hset(&quot;dict1&quot;, &quot;hello&quot;, &quot;world&quot;)</div><div class="line">print(r.get(&quot;dict1&quot;, &quot;hello&quot;))</div><div class="line"></div><div class="line">r.hmset(&quot;dict1&quot;, &#123;&quot;k1&quot;: &quot;v1&quot;, &quot;k2&quot;: &quot;v2&quot;, &quot;k3&quot;: &quot;v3&quot;&#125;)</div><div class="line">print(r.hmget(&quot;dict1&quot;, &quot;k1&quot;, &quot;k2&quot;, &quot;hello&quot;))</div><div class="line">print(r.hgetall(&quot;dict1&quot;))</div><div class="line"></div><div class="line">print(r.hlen(&quot;dict1&quot;))</div><div class="line"># 打印所有的key值</div><div class="line">print(r.hkeys(&quot;dict1&quot;)</div><div class="line"># 打印所有的value</div><div class="line">print(r.hvals(&quot;dict1&quot;)</div><div class="line"># 检查name对应的hash是否存在当前传入的key</div><div class="line">print(r.hexists(&quot;dict1&quot;, &quot;hello&quot;))</div><div class="line"># 将name对应的hash中指定key的键值对删除</div><div class="line">r.hdel(&quot;dict1&quot;, &quot;hello&quot;)</div><div class="line">print(r.hgetall(&quot;dict1&quot;))</div></pre></td></tr></table></figure>
+<h1 id="其他常用操作"><a href="#其他常用操作" class="headerlink" title="其他常用操作"></a>其他常用操作</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">import redis</div><div class="line"></div><div class="line">pool = redis.ConnectionPool(host=&quot;192.168.1.100&quot;, port=6379, db=0)</div><div class="line">r = redis.Redis(connection_pool=pool)</div><div class="line"></div><div class="line"># 删除一个值</div><div class="line">r.delete(&quot;name1&quot;)</div><div class="line"></div><div class="line"># 打印所有key值</div><div class="line">print(r.keys())</div><div class="line"></div><div class="line"># 查看name1的类型</div><div class="line">print(r.type(&quot;name&quot;)</div><div class="line"></div><div class="line">#重命名</div><div class="line">r.rename(&quot;name1&quot;, &quot;name2&quot;)</div><div class="line"></div><div class="line">print(r.exists(&quot;name&quot;)</div><div class="line"></div><div class="line"># 把dict1移动到1库</div><div class="line">r.move(&quot;dice1&quot;, 1)</div></pre></td></tr></table></figure>
+<h1 id="memecache安装"><a href="#memecache安装" class="headerlink" title="memecache安装"></a>memecache安装</h1><p>memcached是一个高性能的分布式内存对象缓存系统</p>
+<h2 id="安装memcache"><a href="#安装memcache" class="headerlink" title="安装memcache"></a>安装memcache</h2><p>cd /usr/local/src</p>
+<p>wget <a href="http://memcached.org/latest" target="_blank" rel="external">http://memcached.org/latest</a></p>
+<p>tar -zxvf memcached-1.x.x.tar.gz</p>
+<p>cd memcached-1.x.x</p>
+<p>./configure &amp;&amp; make &amp;&amp; make test &amp;&amp; sudo make install</p>
+<p>启动参数：</p>
+<p>./memcached -d -m 256 -u root -l 127.0.0.1 -p 11211 -c 256 -P /usr/local/memcached/logs/memcache.pid</p>
+<h1 id="memcache集群的操作"><a href="#memcache集群的操作" class="headerlink" title="memcache集群的操作"></a>memcache集群的操作</h1><p>memcached天生支持集群：</p>
+<p>python-memcached模块原生支持集群操作，其原理是在内存维护一个主机列表，且集群中主机的权重值和主机在列表中重复出现的次数成正比。</p>
+<p>主机     权重</p>
+<p>1.1.1.1  1</p>
+<p>1.1.1.2  2</p>
+<p>1.1.1.3  1</p>
+<p>那么在内存中主机列表为：</p>
+<p>host_list={‘1.1.1.1’, ‘1.1.1.2’, ‘1.1.1.2’, ‘1.1.1.3’}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"># 安装memcache的客户端</div><div class="line"># pip install python-memcached</div><div class="line"></div><div class="line">import memcahce</div><div class="line"></div><div class="line"># memcache.Client初始化一个memcache的客户端对象</div><div class="line"># 如果用户要在内存中创建一个键值对（如，k1 = &quot;v1&quot;),那么要执行以下步骤：</div><div class="line"># 根据算法将k1换成一个数字：</div><div class="line"># 将数字和主机列表长度求余数，得到一个值N（0&lt;=N&lt;列表长度）；</div><div class="line"># 在主机列表中根据第二步得到的值为索引获取主机，例如：host_list[N];</div><div class="line"># 连接将第三步中获取的主机，将k1=&apos;v1&apos;放置在该服务器的内存中。</div><div class="line"># debug=True表示在运行中出现错误是，显示错误信息，上线后移除该参数。</div><div class="line"></div><div class="line">mc = memcache.Client([(&quot;192.168.1.100:11211&quot; ), (&quot;192.168.1.100:11212&quot;, 2), (&quot;192.168.1.100:11213&quot;, 1)], debug=True)</div><div class="line">mc.set(&quot;k1&quot;, &quot;v1&quot;)</div><div class="line">print(mc.get(&quot;k1&quot;))</div><div class="line"></div><div class="line">mc1 = memcache.Client([&quot;192.168.1.100:11213&quot;], debug=True)</div><div class="line">print(mc1.get(&quot;k1&quot;))</div></pre></td></tr></table></figure>
+<h1 id="13-12-memcache常用方法"><a href="#13-12-memcache常用方法" class="headerlink" title="13.12 memcache常用方法"></a>13.12 memcache常用方法</h1><p>存储命令：set/add/replace/append/prepend/cas</p>
+<p>获取命令：get/gets</p>
+<p>其他命令：delete/stats</p>
+<p>add方法：添加一条键值对，如果已经存在的key，重复执行add操作会报异常。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">import memcache</div><div class="line"></div><div class="line">mc = memcache.Client([&quot;192.168.1.100:11211&quot;], debug=True)</div><div class="line"></div><div class="line"># add</div><div class="line"></div><div class="line">mc.add(&quot;k1&quot;, &quot;v1&quot;)</div><div class="line">print(mc.get(&quot;k1&quot;))</div><div class="line"></div><div class="line"># replace</div><div class="line"></div><div class="line">mc.replace(&quot;k1&quot;, &quot;hello world&quot;)</div><div class="line">print(mc.get(&quot;k1&quot;))</div><div class="line"></div><div class="line"># set</div><div class="line"></div><div class="line">mc.set(&quot;k2&quot;, &quot;v2&quot;)</div><div class="line">print(mc.get(&quot;k2&quot;))</div><div class="line"></div><div class="line"># set 和 add的区别</div><div class="line"># 如果这个key值存在，add就会报错，set不会报错，会进行重新赋值并覆盖</div><div class="line"></div><div class="line"># set_multi 一次设置多个key:value</div><div class="line"># get_multi 一次获取多个keys，每个key要以list的形式作为参数传入，返回类型为dict</div><div class="line"></div><div class="line">mc.set_multi(&#123;&quot;k100&quot;: &quot;v100&quot;, &quot;k101&quot;: &quot;v101&quot;, &quot;k102&quot;: &quot;v102&quot;&#125;)</div><div class="line">print(mc.get_multi([&quot;k100&quot;, &quot;k101&quot;, &quot;k102&quot;]))</div><div class="line"></div><div class="line"># append 在后面追加 和 prepend在前面进行追加</div><div class="line">mc.set_multi(&#123;&quot;test1&quot;:&quot;v1&quot;, &quot;test2&quot;:&quot;v2&quot;, &quot;test3&quot;:&quot;v3&quot;, &quot;test4&quot;:&quot;v4&quot;&#125;)</div><div class="line">mc.append(&quot;test1&quot;, &quot;ling&quot;)</div><div class="line">print(mc.get(&quot;test1&quot;))</div><div class="line">mc.prepend(&quot;test2&quot;, &quot;hello&quot;)</div><div class="line">print(mc.get(&quot;test2&quot;))</div><div class="line"></div><div class="line"># iner 默认自增1 第二个参数指定增加数值为n</div><div class="line"># decr 默认自增1 第二个参数指定减少的数值为n</div><div class="line"></div><div class="line">mc.set(&quot;shop&quot;, 1000)</div><div class="line">mc.incr(&quot;shop&quot;)</div><div class="line">print(mc.get(&quot;shop&quot;))</div><div class="line">mc.incr(&quot;shop&quot;, 100)</div><div class="line">print(mc.get(&quot;shop&quot;))</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+  <p><span>本文标题:</span><a href="/2017-11-24-nosql.html">nosql</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 shen 的个人博客">shen</a></p>
+  <p><span>发布时间:</span>2017年11月24日 - 22:11</p>
+  <p><span>最后更新:</span>2017年12月07日 - 22:12</p>
+  <p><span>原始链接:</span><a href="/2017-11-24-nosql.html" title="nosql">https://szone2.github.io/2017-11-24-nosql.html</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://szone2.github.io/2017-11-24-nosql.html"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+	clipboard.on('success', $(function(){
+	  $(".fa-clipboard").click(function(){
+		swal({   
+		  title: "",   
+		  text: '复制成功',   
+		  html: false,
+		  timer: 500,   
+		  showConfirmButton: false
+	    });
+	  });
+    }));  
+</script>
+
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/nosql/" rel="tag"># nosql</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017-11-21-mysql.html" rel="next" title="mysql">
+                <i class="fa fa-chevron-left"></i> mysql
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017-11-28-python基础.html" rel="prev" title="python基础">
+                python基础 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">shen</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#redis服务器搭建"><span class="nav-number">1.</span> <span class="nav-text">redis服务器搭建</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redis简单操作"><span class="nav-number">2.</span> <span class="nav-text">redis简单操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#连接池"><span class="nav-number">3.</span> <span class="nav-text">连接池</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#管道"><span class="nav-number">4.</span> <span class="nav-text">管道</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串操作"><span class="nav-number">5.</span> <span class="nav-text">字符串操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#list"><span class="nav-number">6.</span> <span class="nav-text">list</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#set操作"><span class="nav-number">7.</span> <span class="nav-text">set操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hash类型操作"><span class="nav-number">8.</span> <span class="nav-text">hash类型操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他常用操作"><span class="nav-number">9.</span> <span class="nav-text">其他常用操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#memecache安装"><span class="nav-number">10.</span> <span class="nav-text">memecache安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装memcache"><span class="nav-number">10.1.</span> <span class="nav-text">安装memcache</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#memcache集群的操作"><span class="nav-number">11.</span> <span class="nav-text">memcache集群的操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-12-memcache常用方法"><span class="nav-number">12.</span> <span class="nav-text">13.12 memcache常用方法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shen</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
